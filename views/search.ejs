@@ -1,0 +1,21 @@
+<%- include('partials/header.ejs') -%>
+
+<main>
+  <a class="app__back-link" href="/books">Back</a>
+
+  <form>
+    <label class="book__search-label" for="book-search">Search books</label>
+    <input class="book__search-input" type="text" id="book-search" name="book-search">
+  </form>
+
+  <table class="book__table">
+    <tr>
+      <th>Book Title</th>
+      <th>Author</th>
+      <th>Status</th>
+      <th>Completion Year</th>
+    </tr>
+  </table>
+</main>
+
+<%- include('partials/footer.ejs') -%>
