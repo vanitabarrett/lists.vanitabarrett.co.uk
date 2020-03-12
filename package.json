@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "build_sass": "sass assets/styles/app.scss:dist/styles/app.css assets/styles/index.scss:dist/styles/index.css --style compressed",
+    "build": "npm run build_sass && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +20,7 @@
   "homepage": "https://github.com/vanitabarrett/lists.vanitabarrett.co.uk#readme",
   "dependencies": {
     "ejs": "^3.0.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sass": "^1.26.3"
   }
 }

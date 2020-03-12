@@ -3,6 +3,7 @@ var app = express();
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.use("/dist", express.static(__dirname + '/dist'));
 
 app.get('/', function (req, res) {
   res.render('index');
