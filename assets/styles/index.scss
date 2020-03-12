@@ -1,5 +1,61 @@
 @import "global";
 
 .index {
-  background-color: blue;
+  @include mq($from: tablet) {
+    display: table;
+    overflow: hidden;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.index__link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 20px 20px 30px 20px;
+  box-sizing: border-box;
+  color: $white;
+  border-bottom: 5px solid $orange;
+  background-color: $blue;
+
+  &:last-child {
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-bottom: 0;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $orange;
+    outline: 0;
+  }
+
+  @include mq($from: tablet) {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+    height: 100%;
+
+    &:last-child {
+      border-bottom: 5px solid $orange;
+    }
+  }
+}
+
+.index__link-title {
+  font-size: 20px;
+  font-size: 1.2rem;
+}
+
+.index__svg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+
+  & g,
+  & path {
+    fill: $white;
+  }
 }

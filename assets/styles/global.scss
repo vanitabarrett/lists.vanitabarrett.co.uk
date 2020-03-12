@@ -1,0 +1,33 @@
+$mq-breakpoints: (
+  mobile:  320px,
+  tablet:  740px,
+  desktop: 980px
+);
+
+@import '../../node_modules/sass-mq/_mq';
+
+$blue: #002B49;
+$dark-grey: #595358;
+$light-grey: #CDC5B4;
+$orange: #ff6205;
+$white: #F3F7F0;
+
+body {
+  background-color: $white;
+  margin: 0;
+  padding: 0;
+  font-family: 'Bellota', 'Arial', sans-serif;
+  font-size: 1rem;
+  font-size: 16px;
+}
+
+a {
+  font-size: 16px;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+h1 {
+  margin: 0;
+}
+
