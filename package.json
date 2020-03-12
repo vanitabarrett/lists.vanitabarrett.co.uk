@@ -1,0 +1,22 @@
+{
+  "name": "lists.vanitabarrett.co.uk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanitabarrett/lists.vanitabarrett.co.uk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanitabarrett/lists.vanitabarrett.co.uk/issues"
+  },
+  "homepage": "https://github.com/vanitabarrett/lists.vanitabarrett.co.uk#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
