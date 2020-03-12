@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/vanitabarrett/lists.vanitabarrett.co.uk#readme",
   "dependencies": {
+    "ejs": "^3.0.1",
     "express": "^4.17.1"
   }
 }
