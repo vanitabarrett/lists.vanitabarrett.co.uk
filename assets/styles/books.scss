@@ -54,14 +54,14 @@
   margin-top: 50px;
   border-collapse: collapse;
 
-  tr:first-child {
-    border-bottom: 1px solid $orange;
-  }
-
   td {
     font-family: 'Arial', sans-serif;
     font-size: 16px;
   }
+}
+
+.book__table-header {
+  border-bottom: 1px solid $orange;
 }
 
 .book__table-cell {
