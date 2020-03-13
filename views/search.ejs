@@ -19,7 +19,7 @@
         <tr class="book__table-row">
           <td class="book__table-cell"><%= books[i].Title %></td>
           <td class="book__table-cell"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
-          <td class="book__table-cell"><%= books[i].Status %></td>
+          <td class="book__table-cell book__table-cell-status book__table-cell-status--<%= books[i].Status %>"></td>
         </tr>
       <% } %>
     </table>
