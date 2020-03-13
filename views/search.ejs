@@ -3,19 +3,27 @@
 <main>
   <a class="app__back-link" href="/books">Back</a>
 
-  <form>
-    <label class="book__search-label" for="book-search">Search books</label>
-    <input class="book__search-input" type="text" id="book-search" name="book-search">
-  </form>
+  <% if(books) { %>
+    <form>
+      <label class="book__search-label" for="book-search">Search books</label>
+      <input class="book__search-input" type="text" id="book-search" name="book-search">
+    </form>
 
-  <table class="book__table">
-    <tr>
-      <th>Book Title</th>
-      <th>Author</th>
-      <th>Status</th>
-      <th>Completion Year</th>
-    </tr>
-  </table>
+    <table class="book__table">
+      <tr>
+        <th class="book__table-cell">Book Title</th>
+        <th class="book__table-cell">Author</th>
+        <th class="book__table-cell">Status</th>
+      </tr>
+      <% for(var i = 0; i < books.length; i++) { %>
+        <tr class="book__table-row">
+          <td class="book__table-cell"><%= books[i].Title %></td>
+          <td class="book__table-cell"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
+          <td class="book__table-cell"><%= books[i].Status %></td>
+        </tr>
+      <% } %>
+    </table>
+  <% } %>
 </main>
 
 <%- include('partials/footer.ejs') -%>
