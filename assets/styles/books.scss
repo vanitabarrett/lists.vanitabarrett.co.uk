@@ -39,6 +39,12 @@
   font-size: 18px;
   border: 0;
   border-bottom: 5px solid $orange;
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    border-color: darken($orange, 20%)
+  }
 }
 
 .book__table {
