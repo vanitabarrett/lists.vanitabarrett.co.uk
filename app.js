@@ -27,7 +27,17 @@ app.get('/books', function (req, res) {
 });
 
 app.get('/search', function (req, res) {
-  connection.query('SELECT * FROM list_books', (err,rows) => {
+  var type = req.query.type
+
+  if (type === "list") {
+    var query = "SELECT * FROM list_books";
+  } else if (type === "nonlist") {
+    var query = "SELECT * FROM nonlist_books WHERE NOT Status=2 ORDER BY Status ASC"
+  } else if (type === "wishlist") {
+    var query = "SELECT * FROM nonlist_books WHERE Status=2 ORDER BY Id DESC"
+  }
+
+  connection.query(query, (err,rows) => {
     if (rows) {
       res.render('search', { books: rows });
     } else {
