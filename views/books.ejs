@@ -1,8 +1,22 @@
 <%- include('partials/header.ejs') -%>
+<script src="/dist/javascript/Chart.min.js"></script>
 
 <main>
+  <span class="hidden" data-test="<%= doughnutData %>"></span>
   <section class="books__graphs">
-    <p>Graphs etc will go here</p>
+
+    <!-- Doughnut : completed / 1001 -->
+    <div class="books__graph-doughnut">
+      <canvas id="books__graph-doughnut"></canvas>
+    </div>
+
+    <!-- Completed Stats -->
+    <div class="books__stats">
+      <p class="books__stats-heading">Since 2011:</p>
+      <p>read <span class="books__stats--highlight"><%= doughnutData %></span> books out of 1001</p>
+      <p>read <span class="books__stats--highlight"><%= nonListBooksCompleted %></span> other books</p>
+    </div>
+
   </section>
   <nav class="books__nav">
     <a href="/search?type=list">Search all 1001 books</a>
@@ -11,5 +25,30 @@
     <a href="/">Add book</a>
   </nav>
 </main>
+
+<script>
+  var ctx = document.getElementById('books__graph-doughnut').getContext('2d');
+  var completedBooks = document.querySelector("[data-test]").getAttribute("data-test");
+  var incompleteBooks = 1001 - completedBooks;
+  var data = {
+    "labels": [ "Completed", "Incomplete" ],
+    "datasets": [{
+      "label": "Completed Books / 1001 Books",
+      "data": [completedBooks, incompleteBooks],
+      "backgroundColor": [ "#00b300", "#002B49" ]
+    }]
+  }
+
+  Chart.defaults.global.defaultFontColor = "#fff";
+
+  var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+      maintainAspectRatio: false
+    },
+    responsive: true,
+  });
+</script>
 
 <%- include('partials/footer.ejs') -%>

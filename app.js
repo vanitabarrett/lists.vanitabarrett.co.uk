@@ -23,7 +23,25 @@ app.get('/', function (req, res) {
 });
 
 app.get('/books', function (req, res) {
-  res.render('books');
+  var doughnutDataQuery = "SELECT COUNT(*) AS count FROM list_books WHERE Status=4";
+  var nonListBookCountQuery = "SELECT COUNT(*) AS count FROM nonlist_books WHERE Status=4";
+
+  connection.query(doughnutDataQuery, (err,doughnutDataRows) => {
+    if (doughnutDataRows) {
+      connection.query(nonListBookCountQuery, (err,nonListBooksCompletedRows) => {
+        if (nonListBooksCompletedRows) {
+          res.render('books', {
+            doughnutData: doughnutDataRows[0].count,
+            nonListBooksCompleted: nonListBooksCompletedRows[0].count
+         });
+        } else {
+          // TODO: handle error
+        }
+      });
+    } else {
+      // TODO: handle error
+    }
+  });
 });
 
 app.get('/search', function (req, res) {

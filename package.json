@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build_js": "cp -r assets/javascript dist/",
+    "build_chart_js": "cp -r node_modules/chart.js/dist/Chart.min.js dist/javascript/",
+    "build_js": "cp -r assets/javascript dist/ && npm run build_chart_js",
     "build_sass": "sass assets/styles/app.scss:dist/styles/app.css assets/styles/index.scss:dist/styles/index.css --style compressed",
     "build": "npm run build_sass && npm run build_js && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/vanitabarrett/lists.vanitabarrett.co.uk#readme",
   "dependencies": {
+    "chart.js": "^2.9.3",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
