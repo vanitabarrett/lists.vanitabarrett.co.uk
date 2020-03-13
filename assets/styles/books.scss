@@ -38,12 +38,12 @@
   font-size: 1.2rem;
   font-size: 18px;
   border: 0;
-  border-bottom: 5px solid $orange;
+  border-bottom: 5px solid transparent;
 
   &:hover,
   &:focus {
     outline: 0;
-    border-color: darken($orange, 20%)
+    border-bottom: 5px solid $orange;
   }
 }
 
