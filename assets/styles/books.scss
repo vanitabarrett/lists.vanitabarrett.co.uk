@@ -47,7 +47,6 @@
   }
 }
 
-// TODO: style table on mobile
 .book__table {
   width: 100%;
   text-align: left;
@@ -62,11 +61,44 @@
 }
 
 .book__table-header {
-  border-bottom: 1px solid $orange;
+  display: none;
+
+  @include mq($from: mobile) {
+    display: table-row;
+    border-bottom: 1px solid $orange;
+  }
+
+  .book__table-cell {
+    font-weight: bold;
+  }
 }
 
 .book__table-cell {
-  padding: 10px 5px;
+  display: block;
+
+  @include mq($from: mobile) {
+    display: table-cell;
+    padding: 10px 5px;
+  }
+}
+
+.book__table-row {
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid $orange;
+
+  .book__table-cell:first-child {
+    font-weight: bold;
+  }
+
+  @include mq($from: mobile) {
+    display: table-row;
+    border-bottom: 0;
+
+    .book__table-cell:first-child {
+      font-weight: initial;
+    }
+  }
 }
 
 .paginate_controls input[type=button] {
