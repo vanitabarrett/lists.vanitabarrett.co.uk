@@ -52,6 +52,7 @@
   width: 100%;
   text-align: left;
   margin-top: 50px;
+  margin-bottom: 15px;
   border-collapse: collapse;
 
   td {
@@ -66,4 +67,28 @@
 
 .book__table-cell {
   padding: 10px 5px;
+}
+
+.paginate_controls input[type=button] {
+  outline: 0;
+  border: 0;
+  font-size: 14px;
+  background-color: $orange;
+  color: $white;
+  padding: 10px;
+  margin: 2px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: $dark-grey;
+    cursor: initial;
+  }
+}
+
+.paginate_control_prev,
+.paginate_control_next {
+  padding: 10px 20px;
 }

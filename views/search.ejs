@@ -6,11 +6,11 @@
   <% if(books) { %>
     <form>
       <label class="book__search-label" for="book-search">Search books</label>
-      <input class="book__search-input js-search-input" type="text" id="book-search" name="book-search">
+      <input id="js-search-input" class="book__search-input" type="text" id="book-search" name="book-search">
     </form>
 
-    <table class="book__table">
-      <tr class="book__table-header">
+    <table class="book__table" id="js-book-table">
+      <tr class="book__table-header header">
         <th class="book__table-cell">Book Title</th>
         <th class="book__table-cell">Author</th>
         <th class="book__table-cell">Status</th>
@@ -25,5 +25,7 @@
     </table>
   <% } %>
 </main>
+<script src="dist/javascript/lib/paginate.min.js"></script>
+<script src="dist/javascript/table.js"></script>
 
 <%- include('partials/footer.ejs') -%>
