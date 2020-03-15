@@ -2,7 +2,8 @@
 <script src="/dist/javascript/Chart.min.js"></script>
 
 <main>
-  <span class="hidden" data-test="<%= doughnutData %>"></span>
+  <span class="hidden" data-doughnut="<%= doughnutData %>"></span>
+  <span class="hidden" data-line="<%= completedListBooksData %>"></span>
   <section class="books__graphs">
 
     <!-- Doughnut : completed / 1001 -->
@@ -14,7 +15,13 @@
     <div class="books__stats">
       <p class="books__stats-heading">Since 2011:</p>
       <p>read <span class="books__stats--highlight"><%= doughnutData %></span> books out of 1001</p>
-      <p>read <span class="books__stats--highlight"><%= nonListBooksCompleted %></span> other books</p>
+      <p>read <span class="books__stats--highlight"><%= nonListBooksCompletedData %></span> other books</p>
+      <p>that's <span class="books__stats--highlight"><%= (nonListBooksCompletedData + doughnutData)  %></span> books in total!</p>
+    </div>
+
+    <!-- Line : books read -->
+    <div class="books__graph-line">
+      <canvas id="books__graph-line"></canvas>
     </div>
 
   </section>
@@ -27,10 +34,10 @@
 </main>
 
 <script>
-  var ctx = document.getElementById('books__graph-doughnut').getContext('2d');
-  var completedBooks = document.querySelector("[data-test]").getAttribute("data-test");
+  var doughnutctx = document.getElementById('books__graph-doughnut').getContext('2d');
+  var completedBooks = document.querySelector("[data-doughnut]").getAttribute("data-doughnut");
   var incompleteBooks = 1001 - completedBooks;
-  var data = {
+  var doughnutData = {
     "labels": [ "Completed", "Incomplete" ],
     "datasets": [{
       "label": "Completed Books / 1001 Books",
@@ -41,11 +48,48 @@
 
   Chart.defaults.global.defaultFontColor = "#fff";
 
-  var myDoughnutChart = new Chart(ctx, {
+  var myDoughnutChart = new Chart(doughnutctx, {
     type: 'doughnut',
-    data: data,
+    data: doughnutData,
     options: {
       maintainAspectRatio: false
+    },
+    responsive: true,
+  });
+
+  var linectx = document.getElementById('books__graph-line').getContext('2d');
+  var completedListRawData = JSON.parse(document.querySelector("[data-line]").getAttribute("data-line"));
+  var completedListYears = []
+  var completedListCount = []
+  var completedLookupByYear = {}
+
+  completedListRawData.forEach(function(year) {
+    completedListYears.push(year["Year"])
+    completedListCount.push(year["Count"])
+    completedLookupByYear[year["Year"]] = {
+      count: year["Count"],
+      books: year["Books"]
+    }
+  });
+
+  console.log(completedLookupByYear)
+
+  var lineData = {
+    "labels": completedListYears,
+    "datasets": [{
+      "label": "List Books",
+      "data": completedListCount,
+      "borderColor": "#ff6205"
+    }]
+  }
+
+  Chart.defaults.global.defaultFontColor = "#fff";
+
+  var myLineChart = new Chart(linectx, {
+    type: 'line',
+    data: lineData,
+    options: {
+      maintainAspectRatio: false,
     },
     responsive: true,
   });
