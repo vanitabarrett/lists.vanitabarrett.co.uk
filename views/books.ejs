@@ -73,14 +73,12 @@
   // Get data in a form where you can lookup by year
   completedListRawData.forEach(function(year) {
     formattedListData[year["Year"]] = {
-      count: year["Count"],
-      books: year["Books"]
+      count: year["Count"]
     }
   });
   completedNonListRawData.forEach(function(year) {
     formattedNonListData[year["Year"]] = {
-      count: year["Count"],
-      books: year["Books"]
+      count: year["Count"]
     }
   });
 

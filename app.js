@@ -13,8 +13,8 @@ app.get('/', function (req, res) {
 app.get('/books', async function (req, res) {
   var doughnutDataQuery = "SELECT COUNT(*) AS count FROM list_books WHERE Status=4";
   var nonListBookCountQuery = "SELECT COUNT(*) AS count FROM nonlist_books WHERE Status=4";
-  var completedListBooksQuery = "SELECT completed_list_books.Year, GROUP_CONCAT(list_books.Title) AS \'Books\', COUNT(completed_list_books.Book_Id) AS \'Count\' FROM completed_list_books left join list_books on(completed_list_books.Book_Id=list_books.Id) GROUP BY completed_list_books.Year";
-  var completedNonListBooksQuery = "SELECT completed_nonlist_books.Year, GROUP_CONCAT(nonlist_books.Title) AS \'Books\', COUNT(completed_nonlist_books.Book_Id) AS \'Count\' FROM completed_nonlist_books left join nonlist_books on(completed_nonlist_books.Book_Id=nonlist_books.Id) GROUP BY completed_nonlist_books.Year";
+  var completedListBooksQuery = "SELECT completed_list_books.Year, COUNT(completed_list_books.Book_Id) AS \'Count\' FROM completed_list_books left join list_books on(completed_list_books.Book_Id=list_books.Id) GROUP BY completed_list_books.Year";
+  var completedNonListBooksQuery = "SELECT completed_nonlist_books.Year, COUNT(completed_nonlist_books.Book_Id) AS \'Count\' FROM completed_nonlist_books left join nonlist_books on(completed_nonlist_books.Book_Id=nonlist_books.Id) GROUP BY completed_nonlist_books.Year";
 
   const doughnutData = await database(doughnutDataQuery)
   const nonListBooksCompletedData = await database(nonListBookCountQuery)
