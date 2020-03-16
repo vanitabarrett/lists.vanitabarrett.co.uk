@@ -73,6 +73,17 @@
   font-size: 1.2rem;
 }
 
+/* PAGE: Modal */
+.books__modal--show {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+}
+
 /* PAGE: Search */
 .book__search-label {
   font-weight: bold;

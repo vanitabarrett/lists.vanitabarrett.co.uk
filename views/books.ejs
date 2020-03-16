@@ -35,10 +35,13 @@
     <a href="/search?type=list">Search all 1001 books</a>
     <a href="/search?type=nonlist">Search all other books</a>
     <a href="/search?type=wishlist">View wishlist</a>
-    <a href="#">Add book</a>
+    <a href="#" class="js-add-book">Add book</a>
   </nav>
 </main>
 
+<div class="hidden js-modal"></div>
+
 <script src="dist/javascript/charts.js"></script>
+<script src="dist/javascript/addbook.js"></script>
 
 <%- include('partials/footer.ejs') -%>
