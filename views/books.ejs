@@ -1,28 +1,33 @@
 <%- include('partials/header.ejs') -%>
 <script src="/dist/javascript/Chart.min.js"></script>
 
-<main>
+<main class="books">
   <span class="hidden" data-doughnut="<%= doughnutData %>"></span>
   <span class="hidden" data-line="<%= completedListBooksData %>"></span>
   <span class="hidden" data-nonlist-line="<%= completedNonListBooksData %>"></span>
   <section class="books__graphs">
 
-    <!-- Doughnut : completed / 1001 -->
-    <div class="books__graph-doughnut">
-      <canvas id="books__graph-doughnut"></canvas>
+    <!-- Completed Stats -->
+    <div class="books__stats books__section">
+      <p>You have read <span class="books__stats--highlight"><%= doughnutData %></span> books out of 1001</p>
+      <p>You have read <span class="books__stats--highlight"><%= nonListBooksCompletedData %></span> other books</p>
+      <p>That's <span class="books__stats--highlight"><%= (nonListBooksCompletedData + doughnutData)  %></span> books in total since 2011!</p>
     </div>
 
-    <!-- Completed Stats -->
-    <div class="books__stats">
-      <p class="books__stats-heading">Since 2011:</p>
-      <p>read <span class="books__stats--highlight"><%= doughnutData %></span> books out of 1001</p>
-      <p>read <span class="books__stats--highlight"><%= nonListBooksCompletedData %></span> other books</p>
-      <p>that's <span class="books__stats--highlight"><%= (nonListBooksCompletedData + doughnutData)  %></span> books in total!</p>
+    <!-- Doughnut : completed / 1001 -->
+    <div class="books__section">
+      <h2>Percentage of 1001 books completed</h2>
+      <div class="books__graph-doughnut">
+        <canvas id="books__graph-doughnut"></canvas>
+      </div>
     </div>
 
     <!-- Line : books read -->
-    <div class="books__graph-line">
-      <canvas id="books__graph-line"></canvas>
+    <div class="books__section">
+      <h2>Count of books read each year</h2>
+      <div class="books__graph-line">
+        <canvas id="books__graph-line"></canvas>
+      </div>
     </div>
 
   </section>

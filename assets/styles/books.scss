@@ -1,30 +1,79 @@
+/* PAGE: Home */
+.books {
+  display: table;
+}
+
 .books__graphs {
-  display: inline-block;
-  width: 70%;
-  float: left;
+  display: table-cell;
+  padding: 0 10px 10px 10px;
 }
 
 .books__nav {
-  display: inline-block;
+  display: table-cell;
   width: 30%;
   border-left: 2px solid $orange;
   box-sizing: border-box;
   padding: 0 20px;
+  vertical-align: top;
 
   a {
     font-weight: bold;
     display: block;
     color: $white;
     margin: 0 0 20px 0;
-    border-bottom: 1px solid $orange;
+    background-color: $orange;
+    border-bottom: 2px solid transparent;
     padding: 10px;
 
     &:hover {
-      background-color: $orange;
+      border-bottom: 2px solid $white;
     }
   }
 }
 
+.books__section {
+  position: relative;
+  width: 100%;
+  border-bottom: 2px solid $orange;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+
+  h2 {
+    text-align: center;
+    color: $orange;
+    font-weight: normal;
+  }
+}
+
+.books__graph-doughnut {
+  position: relative;
+  min-height: 250px;
+}
+
+.books__graph-line {
+  height: 40vh;
+  min-height: 300px;
+}
+
+.books__stats {
+  color: $orange;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.books__stats--highlight {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.books__stats-heading {
+  font-weight: bold;
+  font-size: 20px;
+  font-size: 1.2rem;
+}
+
+/* PAGE: Search */
 .book__search-label {
   font-weight: bold;
   margin-bottom: 5px;
@@ -156,31 +205,4 @@
 .paginate_control_prev,
 .paginate_control_next {
   padding: 10px 20px;
-}
-
-.books__graph-doughnut {
-  display: inline-block;
-  position: relative;
-  width: 50%;
-  height: 250px;
-  vertical-align: top;
-}
-
-.books__stats-heading {
-  font-weight: bold;
-  font-size: 20px;
-  font-size: 1.2rem;
-}
-
-.books__stats {
-  width: 45%;
-  display: inline-block;
-  color: $orange;
-  text-align: center;
-  text-transform: uppercase;
-
-  .books__stats--highlight {
-    font-size: 50px;
-    font-weight: bold;
-  }
 }
