@@ -1,5 +1,9 @@
 @import "global";
 
+body {
+  position: unset !important;
+}
+
 .index {
   @include mq($from: tablet) {
     display: table;
