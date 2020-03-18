@@ -88,16 +88,73 @@
 }
 
 .books__modal-form-wrapper {
-  width: 80%;
+  width: 60%;
   position: fixed;
-  top: 50%;
-  transform: translate(-50%);
   left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background-color: $blue;
+  padding: 20px;
 }
 
 .js-modal--show {
   display: block;
+}
+
+/* PAGE: Modal Form */
+.books__modal-form-wrapper {
+  label {
+    color: white;
+    display: block;
+  }
+
+  input[type=text] {
+    width: 100%;
+    padding: 5px;
+    outline: 0;
+    border: 0;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+
+    &:disabled {
+      color: $dark-grey;
+      background-color: lighten($dark-grey, 50%);
+    }
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 0;
+    font-size: 16px;
+    outline: 0;
+    border-radius: 0;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    background-color: $orange;
+    padding: 10px;
+    color: $white;
+    font-size: 16px;
+    margin-top: 20px;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      border-bottom: 2px solid $white;
+      cursor: pointer;
+    }
+  }
+
+  .js-edit-book__year-wrapper--show {
+    display: block;
+  }
 }
 
 /* PAGE: Search */
@@ -178,6 +235,26 @@
     .book__table-cell:first-child {
       font-weight: initial;
     }
+  }
+
+  &:after {
+    content: "edit";
+    display: block;
+    position: relative;
+    visibility: hidden;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+}
+
+.book__table-row .book__table-cell:hover {
+  cursor: pointer;
+}
+
+.book__table-row:hover {
+  &:after {
+    display: block;
+    visibility: visible;
   }
 }
 

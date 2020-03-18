@@ -16,16 +16,40 @@
         <th class="book__table-cell">Status</th>
       </tr>
       <% for(var i = 0; i < books.length; i++) { %>
-        <tr class="book__table-row">
+        <tr class="book__table-row js-edit-book">
           <td class="book__table-cell"><%= books[i].Title %></td>
           <td class="book__table-cell"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
-          <td class="book__table-cell book__table-cell-status book__table-cell-status--<%= books[i].Status %>"></td>
+          <td class="book__table-cell book__table-cell-status book__table-cell-status--<%= books[i].Status %>"><span class="hidden js-book-status"><%= books[i].Status %></span></td>
         </tr>
       <% } %>
     </table>
   <% } %>
 </main>
+
+<div class="hidden books__modal-bg js-modal-bg"></div>
+<div class="hidden books__modal-form-wrapper js-modal">
+  <form method="post" action="/edit-book">
+    <label for="js-edit-book__title">Title:</label>
+    <input type="text" id="js-edit-book__title" name="title">
+    <label for="js-edit-book__author">Author:</label>
+    <input type="text" id="js-edit-book__author" name="author" disabled>
+    <label for="js-edit-book__status">Status:</label>
+    <select id="js-edit-book__status" name="status">
+      <option value="1">Not started</option>
+      <option value="2">Wishlist</option>
+      <option value="3">In progress</option>
+      <option value="4">Completed</option>
+    </select>
+    <div class="hidden js-edit-book__year-wrapper">
+      <label for="js-edit-book__year">Completion year:</label>
+      <input type="text" id="js-edit-book__year" name="year">
+    </div>
+    <button>Save changes</button>
+  </form>
+</div>
+
 <script src="dist/javascript/lib/paginate.min.js"></script>
 <script src="dist/javascript/table.js"></script>
+<script src="dist/javascript/editbook.js"></script>
 
 <%- include('partials/footer.ejs') -%>

@@ -44,6 +44,13 @@ app.get('/search', async function (req, res) {
   res.render('search', { books });
 });
 
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+
+app.post('/edit-book', function (req, res) {
+  console.log(req.body)
+});
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
