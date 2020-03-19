@@ -10,7 +10,6 @@ function queryDatabase(queryString, params) {
   });
   connection.connect((err) => {
     if (err) throw err;
-    console.log('Connected!');
   });
 
   return new Promise((resolve, reject) => {
