@@ -54,24 +54,28 @@ app.post('/edit-book', async function (req, res) {
   var year = req.body.year
   var id = Number(req.body.id)
 
-  if (type === "list") {
-    // Update title and status of book
-    var query = "UPDATE list_books SET Title='" + title + "', Status='" + status + "' WHERE Id='" + id + "'"
-
-    // If book is completed, update/add to completed database
-    if (status === 4) {
-      var secondaryQuery = "INSERT INTO completed_list_books (`Book_Id`, `Year`) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
-    } else {
-      // Delete if it's in the completed table already
-      var secondaryQuery = "DELETE FROM completed_list_books WHERE Book_Id=" + id
-    }
-
-    await database(query)
-    if (secondaryQuery) {
-      await database(secondaryQuery)
-    }
-    res.redirect('/search?type=list');
+  if (type.includes("list")) {
+    var database_name = type + "_books"
+    var completed_database_name = "completed_" + type + "_books"
   }
+
+  // Update title and status of book
+  var query = "UPDATE " + database_name + " SET Title='" + title + "', Status='" + status + "' WHERE Id='" + id + "'"
+
+  // If book is completed, update/add to completed database
+  if (status === 4) {
+    var secondaryQuery = "INSERT INTO " + completed_database_name + " (`Book_Id`, `Year`) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
+  } else {
+    // Delete if it's in the completed table already
+    var secondaryQuery = "DELETE FROM " + completed_database_name + " WHERE Book_Id=" + id
+  }
+
+  await database(query)
+  if (secondaryQuery) {
+    await database(secondaryQuery)
+  }
+
+  res.redirect('/search?type=' + type);
 });
 
 app.listen(3000, function () {

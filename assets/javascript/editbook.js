@@ -23,10 +23,14 @@ var editBook = function() {
   modal.classList += " js-modal--show"
 
   editStatusInput.addEventListener("change", function(e) {
+    var editYearFieldWrapper = document.querySelector(".js-edit-book__year-wrapper")
     if (editStatusInput.value == "4") {
-      var editYearFieldWrapper = document.querySelector(".js-edit-book__year-wrapper")
 
       editYearFieldWrapper.classList += " js-edit-book__year-wrapper--show"
+      editYearFieldWrapper.querySelector("input").required = "true"
+    } else {
+      editYearFieldWrapper.classList.remove("js-edit-book__year-wrapper--show")
+      editYearFieldWrapper.querySelector("input").removeAttribute("required")
     }
   })
 }
