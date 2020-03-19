@@ -5,17 +5,25 @@
 }
 
 .books__graphs {
-  display: table-cell;
-  padding: 0 10px 10px 10px;
+  display: block;
+
+  @include mq($from: tablet) {
+    display: table-cell;
+    padding: 0 10px 10px 10px;
+  }
 }
 
 .books__nav {
-  display: table-cell;
-  width: 30%;
+  display: block;
   border-left: 2px solid $orange;
   box-sizing: border-box;
   padding: 0 20px;
   vertical-align: top;
+
+  @include mq($from: tablet) {
+    display: table-cell;
+    width: 30%;
+  }
 
   a {
     font-weight: bold;
@@ -100,9 +108,13 @@
 .book__table {
   width: 100%;
   text-align: left;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-bottom: 15px;
   border-collapse: collapse;
+
+  @include mq($from: mobile) {
+    margin-top: 50px;
+  }
 
   td {
     font-family: 'Arial', sans-serif;
@@ -129,6 +141,7 @@
 
 .book__table-cell {
   display: block;
+  padding: 5px 0;
 
   @include mq($from: mobile) {
     display: table-cell;
@@ -156,11 +169,15 @@
 
   &:after {
     content: "edit";
-    display: block;
+    display: none;
     position: relative;
     visibility: hidden;
-    padding: 10px 0;
     cursor: pointer;
+
+    @include mq($from: tablet) {
+      display: block;
+      padding: 10px 0;
+    }
   }
 }
 
