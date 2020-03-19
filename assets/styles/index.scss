@@ -2,9 +2,12 @@
 
 body {
   position: unset !important;
+  height: 100vh
 }
 
 .index {
+  height: 100%;
+
   @include mq($from: tablet) {
     display: table;
     overflow: hidden;
@@ -15,6 +18,7 @@ body {
 }
 
 .index__link {
+  position: relative;
   display: block;
   width: 100%;
   text-align: center;
@@ -23,6 +27,7 @@ body {
   color: $white;
   border-bottom: 5px solid $orange;
   background-color: $blue;
+  height: 50%;
 
   &:last-child {
     padding-top: 30px;
@@ -45,6 +50,15 @@ body {
     &:last-child {
       border-bottom: 5px solid $orange;
     }
+  }
+}
+
+.index__link-wrapper {
+  @include mq($until: tablet) {
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
