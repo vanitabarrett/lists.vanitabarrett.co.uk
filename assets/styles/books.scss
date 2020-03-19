@@ -112,7 +112,7 @@
   margin-bottom: 15px;
   border-collapse: collapse;
 
-  @include mq($from: mobile) {
+  @include mq($from: tablet) {
     margin-top: 50px;
   }
 
