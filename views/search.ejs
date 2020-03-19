@@ -16,7 +16,7 @@
         <th class="book__table-cell">Status</th>
       </tr>
       <% for(var i = 0; i < books.length; i++) { %>
-        <tr class="book__table-row js-edit-book" onClick="editBook()">
+        <tr id="<%= books[i].Id %>" class="book__table-row js-edit-book" onClick="editBook()">
           <td class="book__table-cell"><%= books[i].Title %></td>
           <td class="book__table-cell"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
           <td class="book__table-cell book__table-cell-status book__table-cell-status--<%= books[i].Status %>"><span class="hidden js-book-status"><%= books[i].Status %></span></td>
@@ -29,6 +29,8 @@
 <div class="hidden books__modal-bg js-modal-bg"></div>
 <div class="hidden books__modal-form-wrapper js-modal">
   <form method="post" action="/edit-book">
+    <input class="hidden" type="text" name="type" value="<%= type %>" readonly>
+    <input class="hidden" type="text" id="js-edit-book__id" name="id" readonly>
     <label for="js-edit-book__title">Title:</label>
     <input type="text" id="js-edit-book__title" name="title">
     <label for="js-edit-book__author">Author:</label>

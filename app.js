@@ -41,14 +41,37 @@ app.get('/search', async function (req, res) {
   }
 
   const books = await database(query)
-  res.render('search', { books });
+  res.render('search', { books, type });
 });
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
 
-app.post('/edit-book', function (req, res) {
-  console.log(req.body)
+app.post('/edit-book', async function (req, res) {
+  var type = req.body.type
+  var title = req.body.title
+  var status = Number(req.body.status)
+  var year = req.body.year
+  var id = Number(req.body.id)
+
+  if (type === "list") {
+    // Update title and status of book
+    var query = "UPDATE list_books SET Title='" + title + "', Status='" + status + "' WHERE Id='" + id + "'"
+
+    // If book is completed, update/add to completed database
+    if (status === 4) {
+      var secondaryQuery = "INSERT INTO completed_list_books (`Book_Id`, `Year`) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
+    } else {
+      // Delete if it's in the completed table already
+      var secondaryQuery = "DELETE FROM completed_list_books WHERE Book_Id=" + id
+    }
+
+    await database(query)
+    if (secondaryQuery) {
+      await database(secondaryQuery)
+    }
+    res.redirect('/search?type=list');
+  }
 });
 
 app.listen(3000, function () {
