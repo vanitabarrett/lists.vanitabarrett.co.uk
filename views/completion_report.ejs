@@ -1,0 +1,37 @@
+<%- include('partials/header.ejs') -%>
+
+<main>
+  <a class="app__back-link" href="/books">Back</a>
+
+  <% if(completedListBooks) { %>
+    <table class="book__table book__completion-report-table" id="js-book-table">
+      <tr class="book__table-header header">
+        <th class="book__table-cell book__completion-report-cell">Book Title</th>
+        <th class="book__table-cell book__completion-report-cell">Year</th>
+      </tr>
+      <% for(var i = 0; i < completedListBooks.length; i++) { %>
+        <tr class="book__table-row js-edit-book">
+          <td class="book__table-cell book__completion-report-cell"><%= completedListBooks[i].Title %></td>
+          <td class="book__table-cell book__completion-report-cell"><%= completedListBooks[i].Year %></td>
+        </tr>
+      <% } %>
+    </table>
+  <% } %>
+
+  <% if(completedNonListBooks) { %>
+    <table class="book__table book__completion-report-table" id="js-book-table">
+      <tr class="book__table-header header">
+        <th class="book__table-cell">Book Title</th>
+        <th class="book__table-cell">Year</th>
+      </tr>
+      <% for(var i = 0; i < completedNonListBooks.length; i++) { %>
+        <tr class="book__table-row js-edit-book">
+          <td class="book__table-cell"><%= completedNonListBooks[i].Title %></td>
+          <td class="book__table-cell"><%= completedNonListBooks[i].Year %></td>
+        </tr>
+      <% } %>
+    </table>
+  <% } %>
+</main>
+
+<%- include('partials/footer.ejs') -%>

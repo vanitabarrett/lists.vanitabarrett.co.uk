@@ -10,6 +10,16 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
+app.get('/completion-report', async function (req, res) {
+  var completedListBooksQuery = "SELECT completed_list_books.Year, list_books.Title FROM completed_list_books INNER JOIN list_books ON completed_list_books.Book_Id=list_books.Id ORDER BY completed_list_books.Year DESC"
+  var completedListBooks = await database(completedListBooksQuery)
+
+  var completedNonListBooksQuery = "SELECT completed_nonlist_books.Year, nonlist_books.Title FROM completed_nonlist_books INNER JOIN nonlist_books ON completed_nonlist_books.Book_Id=nonlist_books.Id ORDER BY completed_nonlist_books.Year DESC"
+  var completedNonListBooks = await database(completedNonListBooksQuery)
+
+  res.render('completion_report', { completedListBooks, completedNonListBooks });
+});
+
 app.get('/books', async function (req, res) {
   var doughnutDataQuery = "SELECT COUNT(*) AS count FROM list_books WHERE Status=4";
   var nonListBookCountQuery = "SELECT COUNT(*) AS count FROM nonlist_books WHERE Status=4";
