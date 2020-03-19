@@ -80,3 +80,13 @@
     display: block;
   }
 }
+
+.js-modal__close {
+  color: $white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}

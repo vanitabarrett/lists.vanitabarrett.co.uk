@@ -28,6 +28,7 @@
 
 <div class="hidden books__modal-bg js-modal-bg"></div>
 <div class="hidden books__modal-form-wrapper js-modal">
+  <a href="#" class="js-modal__close" onClick="location.reload();">X</a>
   <form method="post" action="/edit-book">
     <input class="hidden" type="text" name="type" value="<%= type %>" readonly>
     <input class="hidden" type="text" id="js-edit-book__id" name="id" readonly>
