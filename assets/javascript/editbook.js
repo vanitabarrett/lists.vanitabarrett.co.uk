@@ -1,7 +1,5 @@
-var editBook = function() {
-  var modalBackground = document.querySelector(".js-modal-bg");
-  var modal = document.querySelector(".js-modal");
-  var editStatusInput = document.querySelector("#js-edit-book__status")
+var initModal = function() {
+  var statusInput = document.querySelector("#js-modal__status")
 
   var parentRow = event.target.closest(".js-edit-book")
   var parentCells = parentRow.querySelectorAll(".book__table-cell")
@@ -16,21 +14,6 @@ var editBook = function() {
 
   editTitleInput.value = bookTitle;
   editAuthorInput.value = bookAuthor;
-  editStatusInput.value = bookStatus;
+  statusInput.value = bookStatus;
   editIdInput.value = bookId;
-
-  modalBackground.classList += " js-modal-bg--show"
-  modal.classList += " js-modal--show"
-
-  editStatusInput.addEventListener("change", function(e) {
-    var editYearFieldWrapper = document.querySelector(".js-edit-book__year-wrapper")
-    if (editStatusInput.value == "4") {
-
-      editYearFieldWrapper.classList += " js-edit-book__year-wrapper--show"
-      editYearFieldWrapper.querySelector("input").required = "true"
-    } else {
-      editYearFieldWrapper.classList.remove("js-edit-book__year-wrapper--show")
-      editYearFieldWrapper.querySelector("input").removeAttribute("required")
-    }
-  })
 }

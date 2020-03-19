@@ -35,14 +35,35 @@
     <a href="/search?type=list">Search all 1001 books</a>
     <a href="/search?type=nonlist">Search all other books</a>
     <a href="/search?type=wishlist">View wishlist</a>
-    <a href="#" class="js-add-book">Add book</a>
+    <a href="#" class="js-add-book" onClick="openModal()">Add book</a>
   </nav>
 </main>
 
 <div class="hidden books__modal-bg js-modal-bg"></div>
-<div class="hidden books__modal-form-wrapper js-modal"></div>
+<div class="hidden books__modal-form-wrapper js-modal">
+  <form method="post" action="/add-book">
+    <label for="js-edit-book__title">Title:</label>
+    <input type="text" id="js-edit-book__title" name="title">
+    <label for="js-edit-book__author">Author Firstname:</label>
+    <input type="text" id="js-edit-book__surname-author" name="surname_author">
+    <label for="js-edit-book__author">Author Surname:</label>
+    <input type="text" id="js-edit-book__firstname-author" name="firstname_author">
+    <label for="js-edit-book__status">Status:</label>
+    <select id="js-modal__status" name="status">
+      <option value="1">Not started</option>
+      <option value="2">Wishlist</option>
+      <option value="3">In progress</option>
+      <option value="4">Completed</option>
+    </select>
+    <div class="hidden js-modal__year-wrapper">
+      <label for="js-modal__year">Completion year:</label>
+      <input type="text" id="js-modal__year" name="year">
+    </div>
+    <button>Add book</button>
+  </form>
+</div>
 
 <script src="dist/javascript/charts.js"></script>
-<script src="dist/javascript/addbook.js"></script>
+<script src="dist/javascript/modal.js"></script>
 
 <%- include('partials/footer.ejs') -%>

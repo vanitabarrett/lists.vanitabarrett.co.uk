@@ -84,6 +84,34 @@ app.post('/edit-book', async function (req, res) {
   res.redirect('/search?type=' + type);
 });
 
+app.post('/add-book', async function (req, res) {
+  var title = req.body.title
+  var firstname = req.body.firstname_author
+  var surname = req.body.surname_author
+  var status = Number(req.body.status)
+  var year = req.body.year
+
+  if (year) {
+    var query = "INSERT INTO nonlist_books (`Id`, `Title`, `Author_FirstName`, `Author_Surname`, `Status`) VALUES (" + null + ",'" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
+  } else {
+    var query = "INSERT INTO nonlist_books (`Id`, `Title`, `Author_FirstName`, `Author_Surname`, `Status`) VALUES (" + null + ",'" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
+  }
+
+  await database(query)
+
+  if (year) {
+    // We now need to add it to the completed table
+    var getBookId = "SELECT Id FROM nonlist_books WHERE title='" + title + "'"
+    var rawId =  await database(getBookId)
+    id = rawId[0].Id
+
+    var secondaryQuery = "INSERT INTO completed_nonlist_books (`Book_Id`, `Year`) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
+    await database(secondaryQuery)
+  }
+
+  res.redirect('/books');
+});
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
