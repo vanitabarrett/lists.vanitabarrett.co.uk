@@ -54,9 +54,15 @@ app.post('/edit-book', async function (req, res) {
   var year = req.body.year
   var id = Number(req.body.id)
 
-  if (type.includes("list")) {
-    var database_name = type + "_books"
-    var completed_database_name = "completed_" + type + "_books"
+  var database_name = ""
+  var completed_database_name = ""
+
+  if (type === "list" || type === "nonlist") {
+    database_name = type + "_books"
+    completed_database_name = "completed_" + type + "_books"
+  } else if (type === "wishlist") {
+    database_name = "nonlist_books"
+    completed_database_name = "completed_nonlist_books"
   }
 
   // Update title and status of book
