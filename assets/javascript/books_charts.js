@@ -1,26 +1,3 @@
-var doughnutctx = document.getElementById('books__graph-doughnut').getContext('2d');
-var completedBooks = document.querySelector("[data-doughnut]").getAttribute("data-doughnut");
-var incompleteBooks = 1001 - completedBooks;
-var doughnutData = {
-  "labels": [ "Completed", "Incomplete" ],
-  "datasets": [{
-    "label": "Completed Books / 1001 Books",
-    "data": [completedBooks, incompleteBooks],
-    "backgroundColor": [ "#00b300", "#002B49" ]
-  }]
-}
-
-Chart.defaults.global.defaultFontColor = "#fff";
-
-var myDoughnutChart = new Chart(doughnutctx, {
-  type: 'doughnut',
-  data: doughnutData,
-  options: {
-    maintainAspectRatio: false
-  },
-  responsive: true,
-});
-
 var linectx = document.getElementById('books__graph-line').getContext('2d');
 var completedListRawData = JSON.parse(document.querySelector("[data-line]").getAttribute("data-line"));
 var completedNonListRawData = JSON.parse(document.querySelector("[data-nonlist-line]").getAttribute("data-nonlist-line"));

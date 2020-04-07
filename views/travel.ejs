@@ -2,10 +2,6 @@
 <script src="/dist/javascript/Chart.min.js"></script>
 
 <main class="dashboard">
-  <!-- Hidden data for charts -->
-  <span class="hidden" data-total-sites="<%= totalListedSites %>"></span>
-  <span class="hidden" data-doughnut="<%= totalCompletedListedSites %>"></span>
-
   <section>
 
     <!-- Completed Stats -->
@@ -18,12 +14,14 @@
       },
     }); %>
 
-    <!-- Doughnut : completed / 1001 -->
+    <!-- Chart: Doughnut -->
     <div class="dashboard__section">
-      <h2 class="dashboard__section-heading">Percentage of sites visited</h2>
-      <div class="dashboard__graph">
-        <canvas id="travel__graph-doughnut"></canvas>
-      </div>
+      <%- include('components/chart_doughnut', {
+        heading: "Percentage of sites visited",
+        userCount: totalCompletedListedSites,
+        total: totalListedSites,
+        labels: [ "Visited", "Not Visited" ],
+      }); %>
     </div>
 
   </section>
@@ -36,6 +34,6 @@
   </nav>
 </main>
 
-<script src="dist/javascript/travel_charts.js"></script>
+<script src="dist/javascript/chart_doughnut.js"></script>
 
 <%- include('partials/footer.ejs') -%>

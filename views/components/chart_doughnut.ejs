@@ -1,0 +1,13 @@
+<% if (locals.userCount && locals.total) { %>
+  <% if (locals.heading) { %>
+    <h2 class="dashboard__section-heading"><%= heading %></h2>
+  <% } %>
+
+  <span class="hidden" data-labels="<%= JSON.stringify(labels) %>"></span>
+  <span class="hidden" data-total="<%= total %>"></span>
+  <span class="hidden" data-userCount="<%= userCount %>"></span>
+
+  <div class="dashboard__graph">
+    <canvas id="chart-doughnut"></canvas>
+  </div>
+<% } %>
