@@ -58,3 +58,39 @@ p {
   display: none;
 }
 
+.main__stats {
+  display: block;
+
+  @include mq($from: tablet) {
+    display: table-cell;
+    padding: 0 10px 10px 10px;
+  }
+}
+
+.main__sidebar {
+  display: block;
+  border-left: 2px solid $orange;
+  box-sizing: border-box;
+  padding: 0 20px;
+  vertical-align: top;
+
+  @include mq($from: tablet) {
+    display: table-cell;
+    width: 30%;
+  }
+
+  a {
+    font-weight: bold;
+    display: block;
+    color: $white;
+    margin: 0 0 20px 0;
+    background-color: $orange;
+    border-bottom: 2px solid transparent;
+    padding: 10px;
+
+    &:hover {
+      border-bottom: 2px solid $white;
+    }
+  }
+}
+
