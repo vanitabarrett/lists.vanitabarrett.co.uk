@@ -45,17 +45,25 @@ app.get('/travel', async function (req, res) {
 
 app.get('/search', async function (req, res) {
   var type = req.query.type
+  var list = req.query.list
 
-  if (type === "list") {
-    var query = "SELECT * FROM list_books ORDER BY CASE WHEN Status = 3 THEN 1 ELSE 2 END, Author_Surname"
-  } else if (type === "nonlist") {
-    var query = "SELECT * FROM nonlist_books WHERE NOT Status=2 ORDER BY Status ASC"
-  } else if (type === "wishlist") {
-    var query = "SELECT * FROM nonlist_books WHERE Status=2 ORDER BY Id DESC"
+  if (list === "books") {
+    if (type === "list") {
+      var query = "SELECT * FROM list_books ORDER BY CASE WHEN Status = 3 THEN 1 ELSE 2 END, Author_Surname"
+    } else if (type === "nonlist") {
+      var query = "SELECT * FROM nonlist_books WHERE NOT Status=2 ORDER BY Status ASC"
+    } else if (type === "wishlist") {
+      var query = "SELECT * FROM nonlist_books WHERE Status=2 ORDER BY Id DESC"
+    }
+
+    const books = await database(query)
+    res.render('search', { books, type });
   }
-
-  const books = await database(query)
-  res.render('search', { books, type });
+  else if (list === "travel") {
+    var query = "SELECT * FROM list__travel ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 2 THEN 2 WHEN Status = 4 THEN 4 ELSE 3 END, country"
+    const sites = await database(query)
+    res.render('search', { sites, type });
+  }
 });
 
 // Parse URL-encoded bodies (as sent by HTML forms)
