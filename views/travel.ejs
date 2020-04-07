@@ -26,12 +26,14 @@
 
   </section>
 
-  <nav class="travel__nav main__sidebar">
-    <a href="/search?type=list&list=travel">Search <%= totalListedSites %> listed sites</a>
-    <!--<a href="/search?type=nonlist&list=travel">Search all other books</a>
-    <a href="/search?type=wishlist&list=travel">View wishlist</a>
-    <a href="completion-report">Completion report</a>-->
-  </nav>
+  <%- include('components/nav', {
+    links: [
+      {
+        href: "/search?type=list&list=travel",
+        text: "Search listed sites"
+      }
+    ]
+  }); %>
 </main>
 
 <script src="dist/javascript/chart_doughnut.js"></script>

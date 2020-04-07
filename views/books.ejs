@@ -42,14 +42,31 @@
 
   </section>
 
-  <nav class="books__nav main__sidebar">
-    <a href="/search?type=list&list=books">Search all 1001 books</a>
-    <a href="/search?type=nonlist&list=books">Search all other books</a>
-    <a href="/search?type=wishlist&list=books">View wishlist</a>
-    <a href="completion-report">Completion report</a>
-    <a href="#" class="js-add-book" onClick="openModal()">Add book</a>
-  </nav>
-
+  <%- include('components/nav', {
+    links: [
+      {
+        href: "/search?type=list&list=books",
+        text: "Search all 1001 books"
+      },
+      {
+        href: "/search?type=nonlist&list=books",
+        text: "Search all other books"
+      },
+      {
+        href: "/search?type=wishlist&list=books",
+        text: "View wishlist"
+      },
+      {
+        href: "completion-report",
+        text: "Completion report"
+      },
+      {
+        href: "#",
+        text: "Add book",
+        action: "openModal()"
+      }
+    ]
+  }); %>
 </main>
 
 <div class="hidden books__modal-bg js-modal-bg"></div>

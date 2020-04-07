@@ -1,0 +1,7 @@
+<% if (locals.links) { %>
+  <nav class="main__sidebar">
+    <% for(var i = 0; i < links.length; i++) { %>
+      <a href="<%= links[i].href %>" onClick="<%= links[i].action %>"><%= links[i].text %></a>
+    <% } %>
+  </nav>
+<% } %>
