@@ -39,6 +39,10 @@ app.get('/books', async function (req, res) {
  });
 });
 
+app.get('/travel', async function (req, res) {
+  res.render('travel');
+});
+
 app.get('/search', async function (req, res) {
   var type = req.query.type
 
