@@ -1,39 +1,3 @@
-/* PAGE: Home */
-.books {
-  display: table;
-  width: 100%;
-}
-
-.books__section {
-  position: relative;
-  width: 100%;
-  border-bottom: 2px solid $orange;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-
-  h2 {
-    text-align: center;
-    color: $orange;
-    font-weight: normal;
-  }
-}
-
-.books__graph-doughnut {
-  position: relative;
-  min-height: 250px;
-}
-
-.books__graph-line {
-  height: 40vh;
-  min-height: 300px;
-}
-
-.books__stats-heading {
-  font-weight: bold;
-  font-size: 20px;
-  font-size: 1.2rem;
-}
-
 /* PAGE: Search */
 .book__search-label {
   font-weight: bold;

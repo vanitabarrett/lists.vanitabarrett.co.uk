@@ -1,0 +1,37 @@
+.dashboard {
+  display: table;
+  width: 100%;
+}
+
+.dashboard__section {
+  position: relative;
+  width: 100%;
+  border-bottom: 2px solid $orange;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.dashboard__section-heading {
+  text-align: center;
+  color: $orange;
+  font-weight: normal;
+}
+
+.dashboard__graph {
+  position: relative;
+  height: 40vh;
+  min-height: 250px;
+}
+
+.dashboard__stats {
+  color: $orange;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+
+.dashboard__stats--highlight {
+  font-size: 50px;
+  font-weight: bold;
+}

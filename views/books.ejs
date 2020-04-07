@@ -1,36 +1,39 @@
 <%- include('partials/header.ejs') -%>
 <script src="/dist/javascript/Chart.min.js"></script>
 
-<main class="books">
+<main class="dashboard">
+  <!-- Hidden data for charts -->
   <span class="hidden" data-doughnut="<%= doughnutData %>"></span>
   <span class="hidden" data-line="<%= completedListBooksData %>"></span>
   <span class="hidden" data-nonlist-line="<%= completedNonListBooksData %>"></span>
-  <section class="books__graphs main__stats">
+
+  <section>
 
     <!-- Completed Stats -->
-    <div class="stats books__section">
-      <p>You have read <span class="stats--highlight"><%= doughnutData %></span> books out of 1001</p>
-      <p>You have read <span class="stats--highlight"><%= nonListBooksCompletedData %></span> other books</p>
-      <p>That's <span class="stats--highlight"><%= (nonListBooksCompletedData + doughnutData)  %></span> books in total since 2011!</p>
+    <div class="dashboard__section dashboard__stats">
+      <p>You have read <span class="dashboard__stats--highlight"><%= doughnutData %></span> books out of 1001</p>
+      <p>You have read <span class="dashboard__stats--highlight"><%= nonListBooksCompletedData %></span> other books</p>
+      <p>That's <span class="dashboard__stats--highlight"><%= (nonListBooksCompletedData + doughnutData)  %></span> books in total since 2011!</p>
     </div>
 
     <!-- Doughnut : completed / 1001 -->
-    <div class="books__section">
-      <h2>Percentage of 1001 books completed</h2>
-      <div class="books__graph-doughnut">
+    <div class="dashboard__section">
+      <h2 class="dashboard__section-heading">Percentage of 1001 books completed</h2>
+      <div class="dashboard__graph">
         <canvas id="books__graph-doughnut"></canvas>
       </div>
     </div>
 
     <!-- Line : books read -->
-    <div class="books__section">
-      <h2>Count of books read each year</h2>
-      <div class="books__graph-line">
+    <div class="dashboard__section">
+      <h2 class="dashboard__section-heading">Count of books read each year</h2>
+      <div class="dashboard__graph">
         <canvas id="books__graph-line"></canvas>
       </div>
     </div>
 
   </section>
+
   <nav class="books__nav main__sidebar">
     <a href="/search?type=list&list=books">Search all 1001 books</a>
     <a href="/search?type=nonlist&list=books">Search all other books</a>
@@ -38,6 +41,7 @@
     <a href="completion-report">Completion report</a>
     <a href="#" class="js-add-book" onClick="openModal()">Add book</a>
   </nav>
+
 </main>
 
 <div class="hidden books__modal-bg js-modal-bg"></div>

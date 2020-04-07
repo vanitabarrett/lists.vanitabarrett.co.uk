@@ -1,26 +1,30 @@
 <%- include('partials/header.ejs') -%>
 <script src="/dist/javascript/Chart.min.js"></script>
 
-<main class="travel">
+<main class="dashboard">
+  <!-- Hidden data for charts -->
   <span class="hidden" data-total-sites="<%= totalListedSites %>"></span>
   <span class="hidden" data-doughnut="<%= totalCompletedListedSites %>"></span>
 
-  <section class="travel__graphs main__stats">
+  <section>
+
     <!-- Completed Stats -->
-    <div class="stats travel__section">
-      <p>You have visited <span class="stats--highlight"><%= totalCompletedListedSites %></span> listed sites out of <%= totalListedSites %></p>
-      <p>You have visited <span class="stats--highlight">TEST</span> other sites</p>
-      <p>That's <span class="stats--highlight">TEST</span> places visited in total!</p>
+    <div class="dashboard__section dashboard__stats">
+      <p>You have visited <span class="dashboard__stats--highlight"><%= totalCompletedListedSites %></span> listed sites out of <%= totalListedSites %></p>
+      <p>You have visited <span class="dashboard__stats--highlight">TEST</span> other sites</p>
+      <p>That's <span class="dashboard__stats--highlight">TEST</span> places visited in total!</p>
     </div>
 
     <!-- Doughnut : completed / 1001 -->
-    <div class="travel__section">
-      <h2>Percentage of sites visited</h2>
-      <div class="travel__graph-doughnut">
+    <div class="dashboard__section">
+      <h2 class="dashboard__section-heading">Percentage of sites visited</h2>
+      <div class="dashboard__graph">
         <canvas id="travel__graph-doughnut"></canvas>
       </div>
     </div>
+
   </section>
+
   <nav class="travel__nav main__sidebar">
     <a href="/search?type=list&list=travel">Search <%= totalListedSites %> listed sites</a>
     <!--<a href="/search?type=nonlist&list=travel">Search all other books</a>
