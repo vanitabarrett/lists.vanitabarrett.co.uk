@@ -10,11 +10,17 @@
   <section>
 
     <!-- Completed Stats -->
-    <div class="dashboard__section dashboard__stats">
-      <p>You have read <span class="dashboard__stats--highlight"><%= doughnutData %></span> books out of 1001</p>
-      <p>You have read <span class="dashboard__stats--highlight"><%= nonListBooksCompletedData %></span> other books</p>
-      <p>That's <span class="dashboard__stats--highlight"><%= (nonListBooksCompletedData + doughnutData)  %></span> books in total since 2011!</p>
-    </div>
+    <%- include('components/dashboard_stats', {
+      action: "read",
+      object: "books",
+      totalListedStat: {
+        userCount: doughnutData,
+        total: 1001
+      },
+      totalNonlistedStat: {
+        userCount: nonListBooksCompletedData,
+      }
+    }); %>
 
     <!-- Doughnut : completed / 1001 -->
     <div class="dashboard__section">

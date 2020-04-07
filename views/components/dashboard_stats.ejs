@@ -1,0 +1,16 @@
+<% if (locals.object && locals.action) { %>
+  <div class="dashboard__section dashboard__stats">
+    <% if (locals.totalListedStat) { %>
+      <p>You have <%= action %>  <span class="dashboard__stats--highlight"><%= totalListedStat.userCount %></span> <%= object %> out of <%= totalListedStat.total %></p>
+    <% } %>
+
+    <% if (locals.totalNonlistedStat) { %>
+      <p>You have <%= action %>  <span class="dashboard__stats--highlight"><%= totalNonlistedStat.userCount %></span> other <%= object %></p>
+    <% } %>
+
+    <% if (locals.totalNonlistedStat && locals.totalListedStat) { %>
+      <p>That's <span class="dashboard__stats--highlight"><%= (totalListedStat.userCount + totalNonlistedStat.userCount)  %></span> <%= object %> in total!</p>
+    <% } %>
+  </div>
+<% } %>
+

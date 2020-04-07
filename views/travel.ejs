@@ -9,11 +9,14 @@
   <section>
 
     <!-- Completed Stats -->
-    <div class="dashboard__section dashboard__stats">
-      <p>You have visited <span class="dashboard__stats--highlight"><%= totalCompletedListedSites %></span> listed sites out of <%= totalListedSites %></p>
-      <p>You have visited <span class="dashboard__stats--highlight">TEST</span> other sites</p>
-      <p>That's <span class="dashboard__stats--highlight">TEST</span> places visited in total!</p>
-    </div>
+    <%- include('components/dashboard_stats', {
+      action: "visited",
+      object: "places",
+      totalListedStat: {
+        userCount: totalCompletedListedSites,
+        total: totalListedSites
+      },
+    }); %>
 
     <!-- Doughnut : completed / 1001 -->
     <div class="dashboard__section">
