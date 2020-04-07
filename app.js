@@ -40,7 +40,16 @@ app.get('/books', async function (req, res) {
 });
 
 app.get('/travel', async function (req, res) {
-  res.render('travel');
+  var totalListedSitesQuery = "SELECT COUNT(*) AS count FROM list__travel"
+  var totalCompletedListedSitesQuery = "SELECT COUNT(*) AS count FROM list__travel WHERE Status=4"
+
+  const totalListedSites = await database(totalListedSitesQuery)
+  const totalCompletedListedSites = await database(totalCompletedListedSitesQuery)
+
+  res.render('travel', {
+    totalListedSites: totalListedSites[0].count,
+    totalCompletedListedSites: totalCompletedListedSites[0].count
+  });
 });
 
 app.get('/search', async function (req, res) {

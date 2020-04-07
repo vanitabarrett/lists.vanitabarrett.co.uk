@@ -1,0 +1,13 @@
+.travel__section {
+  position: relative;
+  width: 100%;
+  border-bottom: 2px solid $orange;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+
+  h2 {
+    text-align: center;
+    color: $orange;
+    font-weight: normal;
+  }
+}
