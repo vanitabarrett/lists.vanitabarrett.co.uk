@@ -18,34 +18,72 @@
     <% } %>
 </main>
 
-<div class="hidden books__modal-bg js-modal-bg"></div>
-<div class="hidden books__modal-form-wrapper js-modal">
-  <a href="#" class="js-modal__close" onClick="location.reload();">X</a>
-  <form method="post" action="/edit-book">
-    <input class="hidden" type="text" name="type" value="<%= type %>" readonly>
-    <input class="hidden" type="text" id="js-edit-book__id" name="id" readonly>
-    <label for="js-edit-book__title">Title:</label>
-    <input type="text" id="js-edit-book__title" name="title">
-    <label for="js-edit-book__author">Author:</label>
-    <input type="text" id="js-edit-book__author" name="author" disabled>
-    <label for="js-edit-book__status">Status:</label>
-    <select id="js-modal__status" name="status">
-      <option value="1">Not started</option>
-      <option value="2">Wishlist</option>
-      <option value="3">In progress</option>
-      <option value="4">Completed</option>
-    </select>
-    <div class="hidden js-modal__year-wrapper">
-      <label for="js-modal__year">Completion year:</label>
-      <input type="text" id="js-modal__year" name="year">
-    </div>
-    <button>Save changes</button>
-  </form>
-</div>
+
+<%- include('components/modal', {
+  action: "/edit-book",
+  fields: [
+    {
+      type: "text",
+      name: "type",
+      prepopulate: true,
+      hidden: true,
+      readonly: true
+    },
+    {
+      type: "text",
+      name: "id",
+      prepopulate: true,
+      hidden: true,
+      readonly: true
+    },
+    {
+      type: "text",
+      label: "Title",
+      name: "title",
+      prepopulate: true
+    },
+    {
+      type: "text",
+      label: "Author",
+      name: "author",
+      prepopulate: true,
+      disabled: true
+    },
+    {
+      type: "select",
+      label: "Status",
+      name: "status",
+      options: [
+        {
+          label: "Not started",
+          value: 1
+        },
+        {
+          label: "Wishlist",
+          value: 2
+        },
+        {
+          label: "In progress",
+          value: 3
+        },
+        {
+          label: "Completed",
+          value: 4
+        }
+      ],
+      prepopulate: true
+    },
+    {
+      type: "text",
+      label: "Completion Year",
+      name: "year",
+      toggleBasedOn: "status",
+      triggerShow: "4"
+    }
+  ]
+}); %>
 
 <script src="dist/javascript/lib/paginate.min.js"></script>
 <script src="dist/javascript/table.js"></script>
-<script src="dist/javascript/modal.js"></script>
-<script src="dist/javascript/editbook.js"></script>
 
 <%- include('partials/footer.ejs') -%>

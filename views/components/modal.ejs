@@ -1,0 +1,54 @@
+<% if (locals.action && locals.fields) { %>
+  <div class="hidden modal__background js-modal-bg"></div>
+
+  <div class="hidden modal__form-wrapper js-modal">
+    <a href="#" class="js-modal__close" onClick="location.reload();">X</a>
+
+    <form method="post" action="<%= action %>">
+
+      <% for(var i = 0; i < fields.length; i++) { %>
+        <% currentField = fields[i] %>
+        <% var id = "js-modal--" + currentField.name %>
+        <% var hiddenClass = currentField.hidden ? "hidden" : "" %>
+        <% var disabled = currentField.disabled ? "disabled" : "" %>
+        <% var readonly = currentField.readonly ? "readonly" : "" %>
+        <% var prepopulate = currentField.prepopulate ? "data-prepopulate=" + currentField.name : "" %>
+        <% var toggleBasedOn = currentField.toggleBasedOn ? "data-toggle-on=" + currentField.toggleBasedOn : "" %>
+        <% var triggerShow = currentField.triggerShow ? "data-trigger-show=" + currentField.triggerShow : "" %>
+
+        <% if (toggleBasedOn.length > 0) { %>
+          <div class="hidden" <%= toggleBasedOn %> <%= triggerShow %>>
+        <% } %>
+
+        <% if (currentField.type === "text") { %>
+          <% if (currentField.label) { %>
+            <label for="<%= id %>"><%= currentField.label %></label>
+          <% } %>
+          <input class="<%= hiddenClass %>" type="text" id="<%= id %>" name="<%= currentField.name %>" <%= disabled %> <%= readonly %> <%= prepopulate %>>
+        <% } %>
+
+        <% if (currentField.type === "select") { %>
+          <% if (currentField.label) { %>
+            <label for="<%= id %>"><%= currentField.label %></label>
+          <% } %>
+          <select id="<%= id %>" name="<%= currentField.name %>" <%= prepopulate %>>
+            <% for(var i = 0; i < currentField.options.length; i++) { %>
+              <% var currentOption = currentField.options[i] %>
+              <option value="<%= currentOption.value %>"><%= currentOption.label %></option>
+            <% } %>
+          </select>
+        <% } %>
+
+        <% if (toggleBasedOn.length > 0) { %>
+          </div>
+        <% } %>
+
+      <% } %>
+
+      <button>Save changes</button>
+    </form>
+
+  </div>
+<% } %>
+
+<script src="dist/javascript/modal.js"></script>

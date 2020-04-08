@@ -1,23 +1,53 @@
-var modalBackground = document.querySelector(".js-modal-bg");
-var modal = document.querySelector(".js-modal");
-var statusInput = document.querySelector("#js-modal__status")
+function prepopulateFields(id) {
+  var element = document.getElementById(id)
+  var fieldsToPopulate = document.querySelectorAll("[data-prepopulate]")
 
-var openModal = function() {
+  fieldsToPopulate.forEach(function(field) {
+    var key = field.getAttribute("data-prepopulate")
+    var value = ""
+
+    if (key !== "type" && key !== "id")  {
+      value = element.querySelector("[data-" + key + "]").getAttribute("data-" + key)
+    } else if (key === "type") {
+      value = document.querySelector("[data-type]").getAttribute("data-type")
+    } else if (key === "id") {
+      value = id
+    }
+    field.value = value
+  })
+}
+
+function showModal() {
+  var modalBackground = document.querySelector(".js-modal-bg");
+  var modal = document.querySelector(".js-modal");
+
   modalBackground.classList += " js-modal-bg--show"
   modal.classList += " js-modal--show"
+}
 
-  if (typeof initModal === "function") {
-    initModal()
-  }
+function setupToggleFields() {
+  var toggleFields = document.querySelectorAll("[data-toggle-on]")
 
-  statusInput.addEventListener("change", function(e) {
-    var yearFieldWrapper = document.querySelector(".js-modal__year-wrapper")
-    if (statusInput.value == "4") {
-      yearFieldWrapper.classList += " js-modal__year-wrapper--show"
-      yearFieldWrapper.querySelector("input").required = "true"
-    } else {
-      yearFieldWrapper.classList.remove("js-modal__year-wrapper--show")
-      yearFieldWrapper.querySelector("input").removeAttribute("required")
-    }
+  toggleFields.forEach(function(field) {
+    var lookup = field.getAttribute("data-toggle-on")
+    var triggerShow = field.getAttribute("data-trigger-show")
+    var triggerElement = document.querySelector("[name='" + lookup + "']")
+
+    triggerElement.addEventListener("change", function(e) {
+      if (triggerElement.value == triggerShow) {
+        field.classList += " js-modal--show"
+        field.querySelector("input").required = "true"
+      } else {
+        field.classList.remove("js-modal--show")
+        field.querySelector("input").removeAttribute("required")
+      }
+    })
   })
+
+}
+
+var openModal = function(id) {
+  prepopulateFields(id)
+  setupToggleFields()
+  showModal()
 }

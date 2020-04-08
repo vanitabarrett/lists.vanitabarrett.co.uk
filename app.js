@@ -112,7 +112,7 @@ app.post('/edit-book', async function (req, res) {
     await database(secondaryQuery)
   }
 
-  res.redirect('/search?type=' + type);
+  res.redirect('/search?type=' + type + '&list=books');
 });
 
 app.post('/add-book', async function (req, res) {
