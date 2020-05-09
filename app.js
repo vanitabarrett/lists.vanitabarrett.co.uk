@@ -80,7 +80,12 @@ app.get('/search', async function (req, res) {
     res.render('search', { books, type });
   }
   else if (list === "travel") {
-    var query = "SELECT * FROM list__travel ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 2 THEN 2 WHEN Status = 4 THEN 4 ELSE 3 END, country"
+    if (type === "list") {
+      var query = "SELECT * FROM list__travel ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 2 THEN 2 WHEN Status = 4 THEN 4 ELSE 3 END, country"
+    } else if (type === "nonlist") {
+      var query = "SELECT * FROM nonlist_countries ORDER BY Visited ASC"
+    }
+
     const sites = await database(query)
     res.render('search', { sites, type });
   }

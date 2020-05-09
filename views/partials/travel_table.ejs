@@ -1,14 +1,29 @@
 <table class="table" id="js-book-table">
-  <tr class="table-header header">
-    <th class="table-cell">Name</th>
-    <th class="table-cell">Country</th>
-    <th class="table-cell">Status</th>
-  </tr>
-  <% for(var i = 0; i < sites.length; i++) { %>
-    <tr id="<%= sites[i].Id %>" class="table-row js-edit-book" onClick="openModal()">
-      <td class="table-cell"><%= sites[i].name %></td>
-      <td class="table-cell"><%= sites[i].country %></td>
-      <td class="table-cell table-cell-status table-cell-status--<%= sites[i].status %>"><span class="hidden js-book-status"><%= sites[i].status %></span></td>
+  <% if (sites[0].country) { %>
+    <tr class="table-header header">
+      <th class="table-cell">Name</th>
+      <th class="table-cell">Country</th>
+      <th class="table-cell">Status</th>
     </tr>
+    <% for(var i = 0; i < sites.length; i++) { %>
+      <tr id="<%= sites[i].Id %>" class="table-row js-edit-book" onClick="openModal()">
+        <td class="table-cell"><%= sites[i].name %></td>
+        <td class="table-cell"><%= sites[i].country %></td>
+        <td class="table-cell table-cell-status table-cell-status--<%= sites[i].status %>"><span class="hidden js-book-status"><%= sites[i].status %></span></td>
+      </tr>
+    <% } %>
+  <% } else { %>
+    <tr class="table-header header">
+      <th class="table-cell">Country</th>
+      <th class="table-cell">Continent</th>
+      <th class="table-cell">Status</th>
+    </tr>
+    <% for(var i = 0; i < sites.length; i++) { %>
+      <tr id="<%= sites[i].Id %>" class="table-row js-edit-book" onClick="openModal()">
+        <td class="table-cell"><%= sites[i].name %></td>
+        <td class="table-cell"><%= sites[i].continent %></td>
+        <td class="table-cell table-cell-status table-cell-status-country--<%= sites[i].visited %>"><span class="hidden js-book-status"><%= sites[i].visited %></span></td>
+      </tr>
+    <% } %>
   <% } %>
 </table>
