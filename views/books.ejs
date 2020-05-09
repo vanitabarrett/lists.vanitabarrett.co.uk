@@ -13,6 +13,8 @@
     <%- include('components/dashboard_stats', {
       action: "read",
       object: "books",
+      other_object: "other books",
+      summary: true,
       totalListedStat: {
         userCount: doughnutData,
         total: 1001

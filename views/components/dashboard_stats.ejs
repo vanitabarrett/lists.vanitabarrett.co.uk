@@ -5,10 +5,15 @@
     <% } %>
 
     <% if (locals.totalNonlistedStat) { %>
-      <p>You have <%= action %>  <span class="dashboard__stats--highlight"><%= totalNonlistedStat.userCount %></span> other <%= object %></p>
+      <p>
+        You have <%= action %>  <span class="dashboard__stats--highlight"><%= totalNonlistedStat.userCount %></span> <%= other_object %>
+        <% if (locals.totalNonlistedStat.total) { %>
+          out of <%= totalNonlistedStat.total %>
+        <% } %>
+      </p>
     <% } %>
 
-    <% if (locals.totalNonlistedStat && locals.totalListedStat) { %>
+    <% if (locals.summary) { %>
       <p>That's <span class="dashboard__stats--highlight"><%= (totalListedStat.userCount + totalNonlistedStat.userCount)  %></span> <%= object %> in total!</p>
     <% } %>
   </div>

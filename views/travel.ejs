@@ -8,9 +8,15 @@
     <%- include('components/dashboard_stats', {
       action: "visited",
       object: "places",
+      other_object: "countries",
+      summary: false,
       totalListedStat: {
         userCount: totalCompletedListedSites,
         total: totalListedSites
+      },
+      totalNonlistedStat: {
+        userCount: totalCompletedCountries,
+        total: totalCountries
       },
     }); %>
 
