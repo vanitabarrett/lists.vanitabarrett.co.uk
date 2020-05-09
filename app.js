@@ -44,9 +44,9 @@ app.get('/travel', async function (req, res) {
   var totalCompletedListedSitesQuery = "SELECT COUNT(*) AS count FROM list__travel WHERE Status=4"
 
   var totalCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries"
-  var totalCompletedCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries WHERE Visited=1"
+  var totalCompletedCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries WHERE Status=1"
 
-  var visitedCountriesQuery = "SELECT id, continent FROM nonlist_countries WHERE Visited=1"
+  var visitedCountriesQuery = "SELECT id, continent FROM nonlist_countries WHERE Status=1"
 
   const totalListedSites = await database(totalListedSitesQuery)
   const totalCompletedListedSites = await database(totalCompletedListedSitesQuery)
@@ -83,7 +83,7 @@ app.get('/search', async function (req, res) {
     if (type === "list") {
       var query = "SELECT * FROM list__travel ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 2 THEN 2 WHEN Status = 4 THEN 4 ELSE 3 END, country"
     } else if (type === "nonlist") {
-      var query = "SELECT * FROM nonlist_countries ORDER BY Visited ASC"
+      var query = "SELECT * FROM nonlist_countries ORDER BY Status ASC"
     }
 
     const sites = await database(query)
@@ -129,6 +129,27 @@ app.post('/edit-book', async function (req, res) {
   }
 
   res.redirect('/search?type=' + type + '&list=books');
+});
+
+app.post('/edit-travel', async function (req, res) {
+  var type = req.body.type
+  var status = Number(req.body.status)
+  var id = ""
+  var database_name = ""
+
+  if (type === "list") {
+    var id = Number(req.body.id)
+    database_name = "list__travel"
+  } else if (type === "nonlist") {
+    var id = req.body.id
+    database_name = "nonlist_countries"
+  }
+
+  var query = "UPDATE " + database_name + " SET Status='" + status + "' WHERE Id='" + id + "'"
+
+  await database(query)
+
+  res.redirect('/search?type=' + type + '&list=travel');
 });
 
 app.post('/add-book', async function (req, res) {

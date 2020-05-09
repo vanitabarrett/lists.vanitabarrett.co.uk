@@ -12,3 +12,67 @@
     </tr>
   <% } %>
 </table>
+
+<%- include('../components/modal', {
+  action: "/edit-book",
+  fields: [
+    {
+      type: "text",
+      name: "type",
+      prepopulate: true,
+      hidden: true,
+      readonly: true
+    },
+    {
+      type: "text",
+      name: "id",
+      prepopulate: true,
+      hidden: true,
+      readonly: true
+    },
+    {
+      type: "text",
+      label: "Title",
+      name: "title",
+      prepopulate: true
+    },
+    {
+      type: "text",
+      label: "Author",
+      name: "author",
+      prepopulate: true,
+      disabled: true
+    },
+    {
+      type: "select",
+      label: "Status",
+      name: "status",
+      options: [
+        {
+          label: "Not started",
+          value: 1
+        },
+        {
+          label: "Wishlist",
+          value: 2
+        },
+        {
+          label: "In progress",
+          value: 3
+        },
+        {
+          label: "Completed",
+          value: 4
+        }
+      ],
+      prepopulate: true
+    },
+    {
+      type: "text",
+      label: "Completion Year",
+      name: "year",
+      toggleBasedOn: "status",
+      triggerShow: "4"
+    }
+  ]
+}); %>

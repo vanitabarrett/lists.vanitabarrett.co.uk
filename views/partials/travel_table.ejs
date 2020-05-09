@@ -1,29 +1,101 @@
-<table class="table" id="js-book-table">
+<table class="table" id="js-book-table" data-type="<%= type %>">
   <% if (sites[0].country) { %>
+    <%
+      locals.modal_secondary_label = "Country";
+      locals.modal_secondary = "country";
+      locals.modal_status_options = [{
+        label: "Not started",
+        value: 1
+      },
+      {
+        label: "Wishlist",
+        value: 2
+      },
+      {
+        label: "In progress",
+        value: 3
+      },
+      {
+        label: "Completed",
+        value: 4
+      }] %>
     <tr class="table-header header">
       <th class="table-cell">Name</th>
       <th class="table-cell">Country</th>
       <th class="table-cell">Status</th>
     </tr>
     <% for(var i = 0; i < sites.length; i++) { %>
-      <tr id="<%= sites[i].Id %>" class="table-row js-edit-book" onClick="openModal()">
-        <td class="table-cell"><%= sites[i].name %></td>
-        <td class="table-cell"><%= sites[i].country %></td>
-        <td class="table-cell table-cell-status table-cell-status--<%= sites[i].status %>"><span class="hidden js-book-status"><%= sites[i].status %></span></td>
+      <tr id="<%= sites[i].id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
+        <td class="table-cell" data-name="<%= sites[i].name %>"><%= sites[i].name %></td>
+        <td class="table-cell" data-country="<%= sites[i].country %>"><%= sites[i].country %></td>
+        <td class="table-cell table-cell-status table-cell-status--<%= sites[i].status %>" data-status="<%= sites[i].status %>"></td>
       </tr>
     <% } %>
   <% } else { %>
+    <%
+    locals.modal_secondary_label = "Continent";
+    locals.modal_secondary = "continent";
+    locals.modal_status_options = [{
+      label: "Not started",
+      value: 0
+    },
+    {
+      label: "Completed",
+      value: 1
+    }] %>
     <tr class="table-header header">
       <th class="table-cell">Country</th>
       <th class="table-cell">Continent</th>
       <th class="table-cell">Status</th>
     </tr>
     <% for(var i = 0; i < sites.length; i++) { %>
-      <tr id="<%= sites[i].Id %>" class="table-row js-edit-book" onClick="openModal()">
-        <td class="table-cell"><%= sites[i].name %></td>
-        <td class="table-cell"><%= sites[i].continent %></td>
-        <td class="table-cell table-cell-status table-cell-status-country--<%= sites[i].visited %>"><span class="hidden js-book-status"><%= sites[i].visited %></span></td>
+      <tr id="<%= sites[i].id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
+        <td class="table-cell" data-name="<%= sites[i].name %>"><%= sites[i].name %></td>
+        <td class="table-cell" data-continent="<%= sites[i].continent %>"><%= sites[i].continent %></td>
+        <td class="table-cell table-cell-status table-cell-status-country--<%= sites[i].status %>" data-status="<%= sites[i].status %>"></td>
       </tr>
     <% } %>
   <% } %>
 </table>
+
+<%- include('../components/modal', {
+  action: "/edit-travel",
+  fields: [
+    {
+      type: "text",
+      name: "type",
+      prepopulate: true,
+      hidden: true,
+      readonly: true
+    },
+    {
+      type: "text",
+      name: "id",
+      prepopulate: true,
+      hidden: true,
+      readonly: true
+    },
+    {
+      type: "text",
+      label: "Name",
+      name: "name",
+      prepopulate: true,
+      disabled: true
+    },
+    {
+      type: "text",
+      label: locals.modal_secondary_label,
+      name: locals.modal_secondary,
+      prepopulate: true,
+      disabled: true
+    },
+    {
+      type: "select",
+      label: "Status",
+      name: "status",
+      options: locals.modal_status_options,
+      prepopulate: true
+    }
+  ]
+}); %>
+

@@ -32,8 +32,8 @@
             <label for="<%= id %>"><%= currentField.label %></label>
           <% } %>
           <select id="<%= id %>" name="<%= currentField.name %>" <%= prepopulate %>>
-            <% for(var i = 0; i < currentField.options.length; i++) { %>
-              <% var currentOption = currentField.options[i] %>
+            <% for(var j = 0; j < currentField.options.length; j++) { %>
+              <% var currentOption = currentField.options[j] %>
               <option value="<%= currentOption.value %>"><%= currentOption.label %></option>
             <% } %>
           </select>
