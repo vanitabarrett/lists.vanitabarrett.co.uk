@@ -1,4 +1,7 @@
+<div class="dashboard__map-wrapper">
 <h2 class="dashboard__section-heading">Countries Visited</h2>
+
+<button class="dashboard__map-close" onClick="closeFullSizeMap()">X</button>
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created for MapSVG plugin: http://mapsvg.com -->
@@ -1072,11 +1075,10 @@
     // Highlight visited countries
     var visitedCountries = JSON.parse(document.querySelector("[data-visitedCountries]").getAttribute("data-visitedCountries"));
 
-    console.log(visitedCountries)
-
     visitedCountries.forEach(function(visitedCountry) {
        var countrySVGPath = map.querySelector("#" + visitedCountry["id"])
        countrySVGPath.style.fill = "#ff6205";
        countrySVGPath.style.stroke = "#993900";
     })
 </script>
+</div>

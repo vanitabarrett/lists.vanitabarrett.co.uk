@@ -35,6 +35,7 @@
       <%- include('components/map', {
         visitedCountries: visitedCountries
       } ) %>
+      <button class="dashboard__map-button" onClick="openMapFullSize()">View Full Size Map</button>
     </div>
   </section>
 
@@ -49,5 +50,6 @@
 </main>
 
 <script src="dist/javascript/chart_doughnut.js"></script>
+<script src="dist/javascript/map.js"></script>
 
 <%- include('partials/footer.ejs') -%>
