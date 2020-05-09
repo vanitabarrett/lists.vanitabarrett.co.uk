@@ -4,6 +4,13 @@
 <main class="dashboard">
   <section>
 
+    <%
+      var continents = JSON.parse(visitedCountries).map(function(country) {
+          return country.continent
+      })
+      var uniqContinents = new Set(continents)
+    %>
+
     <!-- Completed Stats -->
     <%- include('components/dashboard_stats', {
       action: "visited",
@@ -18,6 +25,12 @@
         userCount: totalCompletedCountries,
         total: totalCountries
       },
+      custom: {
+        action: "visited",
+        object: "continents",
+        userCount: uniqContinents.size,
+        total: 7
+      }
     }); %>
 
     <!-- Chart: Doughnut -->
