@@ -1,3 +1,5 @@
+<h2 class="dashboard__section-heading">Countries Visited</h2>
+
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created for MapSVG plugin: http://mapsvg.com -->
 <svg
@@ -1040,25 +1042,41 @@
 
 <p class="map__tooltip invisible">This is: <span class="map__tooltip-text"></span></p>
 
+<span class="hidden" data-visitedCountries="<%= visitedCountries %>"></span>
+
 <script>
     var map = document.querySelector("#map_svg");
     var countries = map.querySelectorAll("path");
     var tooltip = document.querySelector(".map__tooltip");
     var tooltipText = document.querySelector(".map__tooltip-text");
 
+    // Add hover states & "tooltip"
     countries.forEach(function(country) {
         country.style.fill = "lightgrey";
         country.style.stroke = "white"
 
         country.onmouseenter = function(event) {
+           // Store the initial colour, so we can set it back on mouse leave
+            event.target.setAttribute("data-fill", event.target.style.fill)
             event.target.style.fill = "darkgrey"
             tooltipText.textContent = event.target.getAttribute("title");
             tooltip.classList.remove("invisible");
         }
 
         country.onmouseleave = function(event) {
-            event.target.style.fill = "lightgrey"
+            event.target.style.fill = event.target.getAttribute("data-fill");
             tooltip.classList += " invisible";
         }
+    })
+
+    // Highlight visited countries
+    var visitedCountries = JSON.parse(document.querySelector("[data-visitedCountries]").getAttribute("data-visitedCountries"));
+
+    console.log(visitedCountries)
+
+    visitedCountries.forEach(function(visitedCountry) {
+       var countrySVGPath = map.querySelector("#" + visitedCountry["id"])
+       countrySVGPath.style.fill = "#ff6205";
+       countrySVGPath.style.stroke = "#993900";
     })
 </script>

@@ -46,16 +46,20 @@ app.get('/travel', async function (req, res) {
   var totalCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries"
   var totalCompletedCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries WHERE Visited=1"
 
+  var visitedCountriesQuery = "SELECT id, continent FROM nonlist_countries WHERE Visited=1"
+
   const totalListedSites = await database(totalListedSitesQuery)
   const totalCompletedListedSites = await database(totalCompletedListedSitesQuery)
   const totalCountries = await database(totalCountriesQuery)
   const totalCompletedCountries = await database(totalCompletedCountriesQuery)
+  const visitedCountries = await database(visitedCountriesQuery)
 
   res.render('travel', {
     totalListedSites: totalListedSites[0].count,
     totalCompletedListedSites: totalCompletedListedSites[0].count,
     totalCountries: totalCountries[0].count,
     totalCompletedCountries: totalCompletedCountries[0].count,
+    visitedCountries: JSON.stringify(visitedCountries)
   });
 });
 

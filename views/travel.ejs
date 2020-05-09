@@ -32,7 +32,9 @@
 
     <!-- Chart: Map -->
     <div class="dashboard__section">
-      <%- include('components/map', {} ) %>
+      <%- include('components/map', {
+        visitedCountries: visitedCountries
+      } ) %>
     </div>
   </section>
 
