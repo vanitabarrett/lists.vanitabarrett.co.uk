@@ -29,7 +29,7 @@
       <tr id="<%= sites[i].id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
         <td class="table-cell" data-name="<%= sites[i].name %>"><%= sites[i].name %></td>
         <td class="table-cell" data-country="<%= sites[i].country %>"><%= sites[i].country %></td>
-        <td class="table-cell link"><a href="https://whc.unesco.org/en/list/<%= sites[i].id %>">Website</a></td>
+        <td class="table-cell link"><a href="https://whc.unesco.org/en/list/<%= sites[i].id %>" target="_blank">Website</a></td>
         <td class="table-cell table-cell-status table-cell-status--<%= sites[i].status %>" data-status="<%= sites[i].status %>"></td>
       </tr>
     <% } %>
