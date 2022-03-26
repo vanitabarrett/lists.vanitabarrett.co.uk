@@ -58,6 +58,11 @@
   }
 }
 
+.table-cell.link a {
+  color: $white;
+  text-decoration: underline;
+}
+
 .table-row {
   display: block;
   padding: 10px 0;
