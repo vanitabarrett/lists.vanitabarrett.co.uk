@@ -1,0 +1,37 @@
+<%- include('partials/header.ejs') -%>
+
+<main>
+  <a class="app__back-link" href="/travel">Back</a>
+
+  <p hidden><%= error %></p>
+
+  <script>
+    var errorMessage = document.querySelector('[hidden]')
+    if (confirm(errorMessage.innerText)) {
+      document.location.href = "/travel";
+    } else {
+      document.location.href = "/travel";
+    }
+  </script>
+
+  <% if(locals.newSites) { %>
+  <h1>New Sites Added</h1>
+  <p>It looks like there are some new Unesco sites. Review them below and press the button at the end to add them to the database.</p>
+
+  <ul>
+  <% for(var i = 0; i < newSites.length; i++) { %>
+      <li><%= newSites[i].name %> (<%= newSites[i].country %>)</li>
+  <% } %>
+</ul>
+<% } %>
+
+<form action="/update" method = "post">
+  <button>Add new sites</button>
+<form>
+
+</main>
+
+<script src="dist/javascript/lib/paginate.min.js"></scrip>
+<script src="dist/javascript/table.js"></script>
+
+<%- include('partials/footer.ejs') -%>
