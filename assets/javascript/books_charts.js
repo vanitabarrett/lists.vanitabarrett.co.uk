@@ -19,22 +19,18 @@ completedNonListRawData.forEach(function(year) {
 
 var listData = []
 var nonListData = []
+var yearlyTotals = [];
 var labels = []
 
 for (var i = 2011; i <= new Date().getFullYear(); i++) {
   labels.push(i)
 
-  if (formattedListData[i] !== undefined) {
-    listData.push(formattedListData[i]["count"])
-  } else {
-    listData.push(0)
-  }
+  var formattedListDataCount = (formattedListData[i] !== undefined) ? formattedListData[i]["count"] : 0;
+  var formattedNonListDataCount = (formattedNonListData[i] !== undefined) ? formattedNonListData[i]["count"] : 0;
 
-  if (formattedNonListData[i] !== undefined) {
-    nonListData.push(formattedNonListData[i]["count"])
-  } else {
-    nonListData.push(0)
-  }
+  listData.push(formattedListDataCount);
+  nonListData.push(formattedNonListDataCount);
+  yearlyTotals.push(formattedListDataCount + formattedNonListDataCount);
 }
 
 var lineData = {
@@ -49,6 +45,11 @@ var lineData = {
       "label": "Non-List Books",
       "data": nonListData,
       "borderColor": "#CDC5B4"
+    },
+    {
+      "label": "Yearly Totals",
+      "data": yearlyTotals,
+      "borderColor": "AFEEEE",
     }
   ]
 }
