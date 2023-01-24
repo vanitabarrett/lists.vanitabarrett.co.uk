@@ -49,7 +49,7 @@ var lineData = {
     {
       "label": "Yearly Totals",
       "data": yearlyTotals,
-      "borderColor": "AFEEEE",
+      "borderColor": "#AFEEEE",
     }
   ]
 }
