@@ -169,6 +169,7 @@ app.post('/edit-book', async function (req, res) {
   var title = req.body.title
   var status = Number(req.body.status)
   var year = req.body.year
+  var rating = req.body.rating
   var id = Number(req.body.id)
 
   var database_name = ""
@@ -183,7 +184,7 @@ app.post('/edit-book', async function (req, res) {
   }
 
   // Update title and status of book
-  var query = "UPDATE " + database_name + " SET Title='" + title + "', Status='" + status + "' WHERE Id='" + id + "'"
+  var query = "UPDATE " + database_name + " SET Title='" + title + "', Status='" + status + "', Rating='" + rating + "' WHERE Id='" + id + "'"
 
   // If book is completed, update/add to completed database
   if (status === 4) {
