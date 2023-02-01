@@ -139,9 +139,9 @@ app.get('/search', async function (req, res) {
 
   if (list === "books") {
     if (type === "list") {
-      var query = "SELECT * FROM list_books ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 5 THEN 999 ELSE 2 END, Author_Surname"
+      var query = "SELECT list_books.*, completed_list_books.Year FROM list_books LEFT JOIN completed_list_books ON list_books.Id=completed_list_books.Book_Id ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 5 THEN 999 ELSE 2 END, Author_Surname"
     } else if (type === "nonlist") {
-      var query = "SELECT * FROM nonlist_books WHERE NOT Status=2 ORDER BY Status ASC"
+      var query = "SELECT nonlist_books.*, completed_nonlist_books.Year FROM nonlist_books LEFT JOIN completed_nonlist_books ON nonlist_books.Id=completed_nonlist_books.Book_Id WHERE NOT Status=2 ORDER BY Status ASC"
     } else if (type === "wishlist") {
       var query = "SELECT * FROM nonlist_books WHERE Status=2 ORDER BY Id DESC"
     }
@@ -184,7 +184,7 @@ app.post('/edit-book', async function (req, res) {
   }
 
   // Update title and status of book
-  var query = "UPDATE " + database_name + " SET Title='" + title + "', Status='" + status + "', Rating='" + rating + "' WHERE Id='" + id + "'"
+  var query = "UPDATE " + database_name + ' SET Title="' + title + '", Status="' + status + '", Rating="' + rating + '" WHERE Id="' + id + '"'
 
   // If book is completed, update/add to completed database
   if (status === 4) {

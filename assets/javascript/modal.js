@@ -45,6 +45,11 @@ function setupToggleFields() {
     var triggerShow = field.getAttribute("data-trigger-show")
     var triggerElement = document.querySelector("[name='" + lookup + "']")
 
+    if (triggerElement.value == triggerShow) {
+      field.classList += " js-modal--show"
+      field.querySelector("input").required = "true"
+    }
+
     triggerElement.addEventListener("change", function(e) {
       if (triggerElement.value == triggerShow) {
         field.classList += " js-modal--show"

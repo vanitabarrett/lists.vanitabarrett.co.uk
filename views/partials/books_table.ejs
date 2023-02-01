@@ -9,7 +9,7 @@
     <tr id="<%= books[i].Id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
       <td class="table-cell" data-title="<%= books[i].Title %>"><%= books[i].Title %></td>
       <td class="table-cell" data-author="<%= books[i].Author_FirstName %> <%= books[i].Author_Surname %>"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
-      <td class="table-cell table-cell-status table-cell-status--<%= books[i].Status %>" data-status="<%= books[i].Status %>"></td>
+      <td class="table-cell table-cell-status table-cell-status--<%= books[i].Status %>" data-status="<%= books[i].Status %>" data-year="<%= books[i].Year %>"></td>
       <td class="table-cell table-cell-rating" data-rating="<%= books[i].Rating %>">
         <% if (books[i].Rating) { %>
           <%= books[i].Rating %>/5
@@ -81,6 +81,7 @@
       type: "text",
       label: "Completion Year",
       name: "year",
+      prepopulate: true,
       toggleBasedOn: "status",
       triggerShow: "4"
     },
