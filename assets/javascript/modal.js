@@ -13,7 +13,19 @@ function prepopulateFields(id) {
     } else if (key === "id") {
       value = id
     }
-    field.value = value
+
+    if (key === 'rating' && value > 0) {
+      var ratingInputs = field.querySelectorAll('input')
+      ratingInputs.forEach(function (input) {
+        if (value <= input.value) {
+          input.checked = true
+        } else {
+          input.checked = false
+        }
+      })
+    } else {
+      field.value = value
+    }
   })
 }
 

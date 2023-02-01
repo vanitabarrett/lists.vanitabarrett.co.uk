@@ -41,7 +41,7 @@
 
         <% if (currentField.type === "star") { %>
           <div>
-            <div class="rate">
+            <div class="rate" <%= prepopulate %>>
               <p><%= currentField.label %></p>
               <input type="radio" id="star5" name="<%= currentField.name %>" value="5" />
               <label for="star5" title="text">5 stars</label>

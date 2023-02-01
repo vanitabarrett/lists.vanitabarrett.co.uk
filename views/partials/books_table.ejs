@@ -3,12 +3,18 @@
     <th class="table-cell">Book Title</th>
     <th class="table-cell">Author</th>
     <th class="table-cell">Status</th>
+    <th class="table-cell">Rating</th>
   </tr>
   <% for(var i = 0; i < books.length; i++) { %>
     <tr id="<%= books[i].Id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
       <td class="table-cell" data-title="<%= books[i].Title %>"><%= books[i].Title %></td>
       <td class="table-cell" data-author="<%= books[i].Author_FirstName %> <%= books[i].Author_Surname %>"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
       <td class="table-cell table-cell-status table-cell-status--<%= books[i].Status %>" data-status="<%= books[i].Status %>"></td>
+      <td class="table-cell" data-rating="<%= books[i].Rating %>">
+        <% if (books[i].Rating) { %>
+          <%= books[i].Rating %>/5
+        <% } %>
+      </td>
     </tr>
   <% } %>
 </table>
@@ -82,6 +88,7 @@
       type: "star",
       label: "Rating",
       name: "rating",
+      prepopulate: true,
     }
   ]
 }); %>
