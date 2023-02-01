@@ -139,7 +139,7 @@ app.get('/search', async function (req, res) {
 
   if (list === "books") {
     if (type === "list") {
-      var query = "SELECT * FROM list_books ORDER BY CASE WHEN Status = 3 THEN 1 ELSE 2 END, Author_Surname"
+      var query = "SELECT * FROM list_books ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 5 THEN 999 ELSE 2 END, Author_Surname"
     } else if (type === "nonlist") {
       var query = "SELECT * FROM nonlist_books WHERE NOT Status=2 ORDER BY Status ASC"
     } else if (type === "wishlist") {
