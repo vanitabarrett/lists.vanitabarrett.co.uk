@@ -141,7 +141,7 @@ app.get('/search', async function (req, res) {
     if (type === "list") {
       var query = "SELECT list_books.*, completed_list_books.Year FROM list_books LEFT JOIN completed_list_books ON list_books.Id=completed_list_books.Book_Id ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 5 THEN 999 ELSE 2 END, Author_Surname"
     } else if (type === "nonlist") {
-      var query = "SELECT nonlist_books.*, completed_nonlist_books.Year FROM nonlist_books LEFT JOIN completed_nonlist_books ON nonlist_books.Id=completed_nonlist_books.Book_Id WHERE NOT Status=2 ORDER BY Status ASC"
+      var query = "SELECT nonlist_books.*, completed_nonlist_books.Year FROM nonlist_books LEFT JOIN completed_nonlist_books ON nonlist_books.Id=completed_nonlist_books.Book_Id WHERE NOT Status=2 ORDER BY Status ASC, completed_nonlist_books.Year DESC"
     } else if (type === "wishlist") {
       var query = "SELECT * FROM nonlist_books WHERE Status=2 ORDER BY Id DESC"
     }
