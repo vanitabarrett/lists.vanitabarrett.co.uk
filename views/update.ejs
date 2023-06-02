@@ -3,7 +3,9 @@
 <main>
   <a class="app__back-link" href="/travel">Back</a>
 
-  <p hidden><%= error %></p>
+  <% if(locals.error) { %>
+    <p hidden><%= error %></p>
+  <% } %>
 
   <script>
     var errorMessage = document.querySelector('[hidden]')

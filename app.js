@@ -42,6 +42,11 @@ app.get('/books', async function (req, res) {
 app.post('/update', async function (req, res) {
   // Fetch latest data from Unesco
   var allUnescoSites = await database.fetchDataFromUnesco()
+
+  var unescoIds = allUnescoSites.query.row.map((site) => {
+    return Number(site.id_number)
+  }).flat()
+
   var unescoSitesArr = allUnescoSites.query.row.map((site) => {
     return {
       id: Number(site.id_number),
@@ -50,9 +55,28 @@ app.post('/update', async function (req, res) {
     }
   })
 
+  // Fetch all sites from database
+  var allSitesQuery = "SELECT id FROM list__travel"
+  const allSites = await database.queryDatabase(allSitesQuery)
+
+  var allSiteIds = allSites.map((site) => {
+    return site.id
+  })
+
+  // Identify any unesco sites not present in database (lookup via id)
+  var missingSiteIds = unescoIds.diff(allSiteIds)
+
+  if (missingSiteIds.length > 0) {
+    newSitesToAdd = []
+
+    missingSiteIds.forEach(missingSiteId => {
+      newSitesToAdd.push(unescoSitesArr.find(arr => arr.id === missingSiteId))
+    })
+  }
+
   var insertNewUnescoSitesQuery = "INSERT INTO list__travel (`id`, `name`, `country`, `status`) VALUES"
 
-  unescoSitesArr.forEach(async (site, index) => {
+  newSitesToAdd.forEach(async (site, index) => {
     if (index > 0) {
       insertNewUnescoSitesQuery += ","
     }
