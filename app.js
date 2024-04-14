@@ -4,7 +4,7 @@ const database = require('./database');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use("/dist", express.static(__dirname + '/dist'));
+app.use("/public", express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
   res.render('index');
