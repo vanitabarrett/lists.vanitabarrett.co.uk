@@ -21,11 +21,11 @@
   },
   "homepage": "https://github.com/vanitabarrett/lists.vanitabarrett.co.uk#readme",
   "dependencies": {
+    "@vercel/postgres": "^0.8.0",
     "chart.js": "^2.9.3",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "https": "^1.0.0",
-    "mysql": "^2.18.1",
     "sass": "^1.26.3",
     "sass-mq": "^5.0.1",
     "xml2js": "^0.4.23"

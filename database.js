@@ -1,30 +1,11 @@
-var mysql = require('mysql');
+import { sql } from '@vercel/postgres';
 const https = require('https');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
 
-function queryDatabase(queryString, params) {
-  const connection = mysql.createConnection({
-    host: process.env.POSTGRES_HOST,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE
-  });
-  connection.connect((err) => {
-    if (err) throw err;
-  });
-
-  return new Promise((resolve, reject) => {
-    connection.query(queryString, params, (error, results) => {
-      if (error) {
-        console.log(error); // eslint-disable-line no-console
-        reject(error);
-      }
-      resolve(results);
-    });
-
-    connection.end();
-  });
+async function queryDatabase(queryString) {
+  const res = await sql`${queryString}`
+  return res
 }
 
 function fetchDataFromUnesco() {
