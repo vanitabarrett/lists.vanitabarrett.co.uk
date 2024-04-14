@@ -5,10 +5,10 @@ const parser = new xml2js.Parser({ attrkey: "ATTR" });
 
 function queryDatabase(queryString, params) {
   const connection = mysql.createConnection({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env. MYSQL_PASS,
-    database: process.env.MYSQL_NAME
+    host: process.env.POSTGRES_HOST,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DATABASE
   });
   connection.connect((err) => {
     if (err) throw err;
