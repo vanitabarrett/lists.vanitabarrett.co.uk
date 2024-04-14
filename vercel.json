@@ -2,6 +2,6 @@
   "version": 2,
   "buildCommand": "npm run build_sass && npm run build_js",
   "rewrites": [
-    { "source": "/:path*", "destination": "/api/:path*" }
+    { "source": "/:path*", "destination": "/api/app/:path*" }
   ]
 }
