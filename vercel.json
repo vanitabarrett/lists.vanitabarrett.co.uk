@@ -1,24 +1,4 @@
 {
   "version": 2,
-  "buildCommand": "npm build_sass && npm build_js",
-  "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "/public/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/public/(.*)",
-      "dest": "public"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "app.js"
-    }
-  ]
+  "buildCommand": "npm build_sass && npm build_js"
 }
