@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "api/index.js",
+  "type": "module",
   "scripts": {
     "build_chart_js": "cp -r node_modules/chart.js/dist/Chart.min.js public/javascript/",
     "build_js": "cp -r assets/javascript public/ && npm run build_chart_js",
