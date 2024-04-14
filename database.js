@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-var config = require('./config/config.js');
 const https = require('https');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
