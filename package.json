@@ -2,12 +2,12 @@
   "name": "lists.vanitabarrett.co.uk",
   "version": "1.0.0",
   "description": "",
-  "main": "api/app.js",
+  "main": "api/index.js",
   "scripts": {
     "build_chart_js": "cp -r node_modules/chart.js/dist/Chart.min.js public/javascript/",
     "build_js": "cp -r assets/javascript public/ && npm run build_chart_js",
     "build_sass": "sass assets/styles/app.scss:public/styles/app.css assets/styles/index.scss:public/styles/index.css --style compressed",
-    "build": "npm run build_sass && npm run build_js && node api/app.js",
+    "build": "npm run build_sass && npm run build_js && node api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
