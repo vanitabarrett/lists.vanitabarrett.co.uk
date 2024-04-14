@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const database = require('./database');
+const database = require('../database');
 
-app.set('views', __dirname + '/views');
+app.set('views', './views');
 app.set('view engine', 'ejs');
-app.use("/public", express.static(__dirname + '/public'));
+app.use("/public", express.static('./public'));
 
 app.get('/', function (req, res) {
   res.render('index');
