@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 
-app.get("/", (req, res) => res.send(__dirname));
+app.set('views', __dirname + '/../views');
+app.set('view engine', 'ejs');
+
+app.get("/", (req, res) =>  res.render('index'));
 
 app.listen(3000, () => console.log("Server ready on port 3000."));
 
@@ -11,8 +14,6 @@ module.exports = app;
 const app = express();
 const database = require('../database');
 
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
 app.use("/public", express.static('../public'));
 
 app.get('/', function (req, res) {
