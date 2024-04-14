@@ -4,17 +4,10 @@ const app = express();
 app.set('views', __dirname + '/../views');
 app.set('view engine', 'ejs');
 
-app.get("/", (req, res) =>  res.render('index'));
-
-app.listen(3000, () => console.log("Server ready on port 3000."));
-
-module.exports = app;
-
-/* const express = require('express');
-const app = express();
 const database = require('../database');
 
-app.use("/public", express.static('../public'));
+// Keeping this cos might need it to run locally (Vercel doesn't require it)
+app.use(express.static('public'))
 
 app.get('/', function (req, res) {
   res.render('index');
@@ -30,7 +23,7 @@ app.get('/completion-report', async function (req, res) {
   res.render('completion_report', { completedListBooks, completedNonListBooks });
 });
 
-app.get('/api/app/books', async function (req, res) {
+app.get('/books', async function (req, res) {
   var doughnutDataQuery = "SELECT COUNT(*) AS count FROM list_books WHERE Status=4";
   var nonListBookCountQuery = "SELECT COUNT(*) AS count FROM nonlist_books WHERE Status=4";
   var completedListBooksQuery = "SELECT completed_list_books.Year, COUNT(completed_list_books.Book_Id) AS \'Count\' FROM completed_list_books left join list_books on(completed_list_books.Book_Id=list_books.Id) GROUP BY completed_list_books.Year";
@@ -291,4 +284,3 @@ app.listen(3000, function () {
 
 // Export the Express API
 module.exports = app;
- */
