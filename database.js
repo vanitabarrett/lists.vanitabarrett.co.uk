@@ -1,10 +1,10 @@
-import { sql } from '@vercel/postgres';
+const vercel = require('@vercel/postgres')
 const https = require('https');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser({ attrkey: "ATTR" });
 
 async function queryDatabase(queryString) {
-  const res = await sql`${queryString}`
+  const res = await vercel.sql`${queryString}`
   return res
 }
 
