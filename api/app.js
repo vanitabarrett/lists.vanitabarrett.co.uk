@@ -20,7 +20,7 @@ app.get('/completion-report', async function (req, res) {
   res.render('completion_report', { completedListBooks, completedNonListBooks });
 });
 
-app.get('/books', async function (req, res) {
+app.get('api/books', async function (req, res) {
   var doughnutDataQuery = "SELECT COUNT(*) AS count FROM list_books WHERE Status=4";
   var nonListBookCountQuery = "SELECT COUNT(*) AS count FROM nonlist_books WHERE Status=4";
   var completedListBooksQuery = "SELECT completed_list_books.Year, COUNT(completed_list_books.Book_Id) AS \'Count\' FROM completed_list_books left join list_books on(completed_list_books.Book_Id=list_books.Id) GROUP BY completed_list_books.Year";
