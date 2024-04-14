@@ -7,13 +7,13 @@ var formattedNonListData = {}
 
 // Get data in a form where you can lookup by year
 completedListRawData.forEach(function(year) {
-  formattedListData[year["Year"]] = {
-    count: year["Count"]
+  formattedListData[year["year"]] = {
+    count: year["count"]
   }
 });
 completedNonListRawData.forEach(function(year) {
-  formattedNonListData[year["Year"]] = {
-    count: year["Count"]
+  formattedNonListData[year["year"]] = {
+    count: year["count"]
   }
 });
 

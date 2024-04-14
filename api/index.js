@@ -10,25 +10,11 @@ const database = require('../database');
 // Keeping this cos might need it to run locally (Vercel doesn't require it)
 app.use(express.static('public'))
 
-app.get('/', function (req, res) {
-  res.render('index');
-});
-
-app.get('/completion-report', async function (req, res) {
-  var completedListBooksQuery = "SELECT completed_list_books.Year, list_books.Title FROM completed_list_books INNER JOIN list_books ON completed_list_books.Book_Id=list_books.Id ORDER BY completed_list_books.Year DESC"
-  var completedListBooks = await database.queryDatabase(completedListBooksQuery)
-
-  var completedNonListBooksQuery = "SELECT completed_nonlist_books.Year, nonlist_books.Title FROM completed_nonlist_books INNER JOIN nonlist_books ON completed_nonlist_books.Book_Id=nonlist_books.Id ORDER BY completed_nonlist_books.Year DESC"
-  var completedNonListBooks = await database.queryDatabase(completedNonListBooksQuery)
-
-  res.render('completion_report', { completedListBooks, completedNonListBooks });
-});
-
 app.get('/books', async function (req, res) {
-  var doughnutDataQuery = "SELECT COUNT(*) AS count FROM list_books WHERE Status=4";
-  var nonListBookCountQuery = "SELECT COUNT(*) AS count FROM nonlist_books WHERE Status=4";
-  var completedListBooksQuery = "SELECT completed_list_books.Year, COUNT(completed_list_books.Book_Id) AS \'Count\' FROM completed_list_books left join list_books on(completed_list_books.Book_Id=list_books.Id) GROUP BY completed_list_books.Year";
-  var completedNonListBooksQuery = "SELECT completed_nonlist_books.Year, COUNT(completed_nonlist_books.Book_Id) AS \'Count\' FROM completed_nonlist_books left join nonlist_books on(completed_nonlist_books.Book_Id=nonlist_books.Id) GROUP BY completed_nonlist_books.Year";
+  var doughnutDataQuery = "SELECT COUNT(*)::int AS count FROM list_books WHERE Status=4";
+  var nonListBookCountQuery = "SELECT COUNT(*)::int AS count FROM nonlist_books WHERE Status=4";
+  var completedListBooksQuery = "SELECT completed_list_books.year, COUNT(completed_list_books.book_id)::int AS Count FROM completed_list_books left join list_books on(completed_list_books.book_id=list_books.id) GROUP BY completed_list_books.year";
+  var completedNonListBooksQuery = "SELECT completed_nonlist_books.year, COUNT(completed_nonlist_books.book_id)::int AS Count FROM completed_nonlist_books left join nonlist_books on(completed_nonlist_books.book_id=nonlist_books.id) GROUP BY completed_nonlist_books.year";
 
   const doughnutData = await database.queryDatabase(doughnutDataQuery)
   const nonListBooksCompletedData = await database.queryDatabase(nonListBookCountQuery)
@@ -41,6 +27,20 @@ app.get('/books', async function (req, res) {
     completedListBooksData: JSON.stringify(completedListBooksData),
     completedNonListBooksData: JSON.stringify(completedNonListBooksData)
  });
+});
+
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
+app.get('/completion-report', async function (req, res) {
+  var completedListBooksQuery = "SELECT completed_list_books.year, list_books.title FROM completed_list_books INNER JOIN list_books ON completed_list_books.book_id=list_books.id ORDER BY completed_list_books.year DESC"
+  var completedListBooks = await database.queryDatabase(completedListBooksQuery)
+
+  var completedNonListBooksQuery = "SELECT completed_nonlist_books.year, nonlist_books.title FROM completed_nonlist_books INNER JOIN nonlist_books ON completed_nonlist_books.book_id=nonlist_books.id ORDER BY completed_nonlist_books.year DESC"
+  var completedNonListBooks = await database.queryDatabase(completedNonListBooksQuery)
+
+  res.render('completion_report', { completedListBooks, completedNonListBooks });
 });
 
 app.post('/update', async function (req, res) {
@@ -60,7 +60,7 @@ app.post('/update', async function (req, res) {
   })
 
   // Fetch all sites from database
-  var allSitesQuery = "SELECT id FROM list__travel"
+  var allSitesQuery = "SELECT Id FROM list__travel"
   const allSites = await database.queryDatabase(allSitesQuery)
 
   var allSiteIds = allSites.map((site) => {
@@ -78,7 +78,7 @@ app.post('/update', async function (req, res) {
     })
   }
 
-  var insertNewUnescoSitesQuery = "INSERT INTO list__travel (`id`, `name`, `country`, `status`) VALUES"
+  var insertNewUnescoSitesQuery = "INSERT INTO list__travel (id, name, country, status) VALUES"
 
   newSitesToAdd.forEach(async (site, index) => {
     if (index > 0) {
@@ -138,11 +138,11 @@ app.get('/update', async function (req, res) {
 })
 
 app.get('/travel', async function (req, res) {
-  var totalListedSitesQuery = "SELECT COUNT(*) AS count FROM list__travel"
-  var totalCompletedListedSitesQuery = "SELECT COUNT(*) AS count FROM list__travel WHERE Status=4"
+  var totalListedSitesQuery = "SELECT COUNT(*)::int AS count FROM list__travel"
+  var totalCompletedListedSitesQuery = "SELECT COUNT(*)::int AS count FROM list__travel WHERE Status=4"
 
-  var totalCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries"
-  var totalCompletedCountriesQuery = "SELECT COUNT(*) AS count FROM nonlist_countries WHERE Status=1"
+  var totalCountriesQuery = "SELECT COUNT(*)::int AS count FROM nonlist_countries"
+  var totalCompletedCountriesQuery = "SELECT COUNT(*)::int AS count FROM nonlist_countries WHERE Status=1"
 
   var visitedCountriesQuery = "SELECT id, continent FROM nonlist_countries WHERE Status=1"
 
@@ -167,14 +167,15 @@ app.get('/search', async function (req, res) {
 
   if (list === "books") {
     if (type === "list") {
-      var query = "SELECT list_books.*, completed_list_books.Year FROM list_books LEFT JOIN completed_list_books ON list_books.Id=completed_list_books.Book_Id ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 5 THEN 999 ELSE 2 END, Author_Surname"
+      var query = "SELECT list_books.*, completed_list_books.year FROM list_books LEFT JOIN completed_list_books ON list_books.id=completed_list_books.book_id ORDER BY CASE WHEN Status = 3 THEN 1 WHEN Status = 5 THEN 999 ELSE 2 END, Author_Surname"
     } else if (type === "nonlist") {
-      var query = "SELECT nonlist_books.*, completed_nonlist_books.Year FROM nonlist_books LEFT JOIN completed_nonlist_books ON nonlist_books.Id=completed_nonlist_books.Book_Id WHERE NOT Status=2 ORDER BY Status ASC, completed_nonlist_books.Year DESC"
+      var query = "SELECT nonlist_books.*, completed_nonlist_books.year FROM nonlist_books LEFT JOIN completed_nonlist_books ON nonlist_books.id=completed_nonlist_books.book_id WHERE NOT Status=2 ORDER BY Status ASC, completed_nonlist_books.year DESC"
     } else if (type === "wishlist") {
       var query = "SELECT * FROM nonlist_books WHERE Status=2 ORDER BY Id DESC"
     }
 
     const books = await database.queryDatabase(query)
+    console.log(books)
     res.render('search', { books, type });
   }
   else if (list === "travel") {
@@ -216,7 +217,7 @@ app.post('/edit-book', async function (req, res) {
 
   // If book is completed, update/add to completed database
   if (status === 4) {
-    var secondaryQuery = "INSERT INTO " + completed_database_name + " (`Book_Id`, `Year`) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
+    var secondaryQuery = "INSERT INTO " + completed_database_name + " (book_id, year) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE Year = '"+ year + "'"
   } else {
     // Delete if it's in the completed table already
     var secondaryQuery = "DELETE FROM " + completed_database_name + " WHERE Book_Id=" + id
@@ -259,9 +260,9 @@ app.post('/add-book', async function (req, res) {
   var year = req.body.year
 
   if (year) {
-    var query = "INSERT INTO nonlist_books (`Id`, `Title`, `Author_FirstName`, `Author_Surname`, `Status`) VALUES (" + null + ",'" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
+    var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, '" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
   } else {
-    var query = "INSERT INTO nonlist_books (`Id`, `Title`, `Author_FirstName`, `Author_Surname`, `Status`) VALUES (" + null + ",'" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
+    var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, '" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
   }
 
   await database.queryDatabase(query)
@@ -270,9 +271,9 @@ app.post('/add-book', async function (req, res) {
     // We now need to add it to the completed table
     var getBookId = "SELECT Id FROM nonlist_books WHERE title='" + title + "'"
     var rawId =  await database.queryDatabase(getBookId)
-    id = rawId[0].Id
+    id = rawId[0].id
 
-    var secondaryQuery = "INSERT INTO completed_nonlist_books (`Book_Id`, `Year`) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
+    var secondaryQuery = "INSERT INTO completed_nonlist_books (book_id, year) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
     await database.queryDatabase(secondaryQuery)
   }
 

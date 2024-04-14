@@ -13,8 +13,8 @@
         </tr>
         <% for(var i = 0; i < completedListBooks.length; i++) { %>
           <tr class="table-row js-edit-book">
-            <td class="table-cell completion-report-cell"><%= completedListBooks[i].Title %></td>
-            <td class="table-cell completion-report-cell"><%= completedListBooks[i].Year %></td>
+            <td class="table-cell completion-report-cell"><%= completedListBooks[i].title %></td>
+            <td class="table-cell completion-report-cell"><%= completedListBooks[i].year %></td>
           </tr>
         <% } %>
       </table>
@@ -31,8 +31,8 @@
         </tr>
         <% for(var i = 0; i < completedNonListBooks.length; i++) { %>
           <tr class="table-row js-edit-book">
-            <td class="table-cell"><%= completedNonListBooks[i].Title %></td>
-            <td class="table-cell"><%= completedNonListBooks[i].Year %></td>
+            <td class="table-cell"><%= completedNonListBooks[i].title %></td>
+            <td class="table-cell"><%= completedNonListBooks[i].year %></td>
           </tr>
         <% } %>
       </table>

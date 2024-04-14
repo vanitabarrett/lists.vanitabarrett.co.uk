@@ -6,13 +6,13 @@
     <th class="table-cell table-cell-rating">Rating</th>
   </tr>
   <% for(var i = 0; i < books.length; i++) { %>
-    <tr id="<%= books[i].Id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
-      <td class="table-cell" data-title="<%= books[i].Title %>"><%= books[i].Title %></td>
-      <td class="table-cell" data-author="<%= books[i].Author_FirstName %> <%= books[i].Author_Surname %>"><%= books[i].Author_FirstName %> <%= books[i].Author_Surname %></td>
-      <td class="table-cell table-cell-status table-cell-status--<%= books[i].Status %>" data-status="<%= books[i].Status %>" data-year="<%= books[i].Year %>"></td>
-      <td class="table-cell table-cell-rating" data-rating="<%= books[i].Rating %>">
-        <% if (books[i].Rating) { %>
-          <%= books[i].Rating %>/5
+    <tr id="<%= books[i].id %>" class="table-row js-edit-book" onClick="openModal(this.id)">
+      <td class="table-cell" data-title="<%= books[i].title %>"><%= books[i].title %></td>
+      <td class="table-cell" data-author="<%= books[i].author_firstname %> <%= books[i].author_surname %>"><%= books[i].author_firstname %> <%= books[i].author_surname %></td>
+      <td class="table-cell table-cell-status table-cell-status--<%= books[i].status %>" data-status="<%= books[i].status %>" data-year="<%= books[i].year %>"></td>
+      <td class="table-cell table-cell-rating" data-rating="<%= books[i].rating %>">
+        <% if (books[i].rating) { %>
+          <%= books[i].rating %>/5
         <% } %>
       </td>
     </tr>
