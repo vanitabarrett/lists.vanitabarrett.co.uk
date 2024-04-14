@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "npm build_sass && npm build_js",
   "builds": [
     {
       "src": "app.js",
