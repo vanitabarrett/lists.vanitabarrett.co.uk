@@ -175,7 +175,6 @@ app.get('/search', async function (req, res) {
     }
 
     const books = await database.queryDatabase(query)
-    console.log(books)
     res.render('search', { books, type });
   }
   else if (list === "travel") {
@@ -198,7 +197,7 @@ app.post('/edit-book', async function (req, res) {
   var title = req.body.title
   var status = Number(req.body.status)
   var year = req.body.year
-  var rating = req.body.rating
+  var rating = req.body.rating || 0
   var id = Number(req.body.id)
 
   var database_name = ""
@@ -213,14 +212,13 @@ app.post('/edit-book', async function (req, res) {
   }
 
   // Update title and status of book
-  var query = "UPDATE " + database_name + ' SET Title="' + title + '", Status="' + status + '", Rating="' + rating + '" WHERE Id="' + id + '"'
-
+  var query = "UPDATE " + database_name + ' SET title = \'' + title + '\', status = \'' + status + '\', rating = \'' + rating + '\' WHERE id = \'' + id + '\''
   // If book is completed, update/add to completed database
   if (status === 4) {
-    var secondaryQuery = "INSERT INTO " + completed_database_name + " (book_id, year) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE Year = '"+ year + "'"
+    var secondaryQuery = "INSERT INTO " + completed_database_name + " (book_id, year) VALUES (" + id + "," + year + ") ON CONFLICT (book_id) DO UPDATE SET year = '" + year + "'"
   } else {
     // Delete if it's in the completed table already
-    var secondaryQuery = "DELETE FROM " + completed_database_name + " WHERE Book_Id=" + id
+    var secondaryQuery = "DELETE FROM " + completed_database_name + " WHERE book_id=" + id
   }
 
   await database.queryDatabase(query)
@@ -273,7 +271,7 @@ app.post('/add-book', async function (req, res) {
     var rawId =  await database.queryDatabase(getBookId)
     id = rawId[0].id
 
-    var secondaryQuery = "INSERT INTO completed_nonlist_books (book_id, year) VALUES (" + id + "," + year + ") ON DUPLICATE KEY UPDATE `Year` = '"+ year + "'"
+    var secondaryQuery = "INSERT INTO completed_nonlist_books (book_id, year) VALUES (" + id + "," + year + ") ON CONFLICT (book_id) DO UPDATE SET year = '" + year + "'"
     await database.queryDatabase(secondaryQuery)
   }
 
