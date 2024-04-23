@@ -1,4 +1,6 @@
 const express = require("express");
+const basicAuth = require('express-basic-auth')
+
 require('dotenv').config()
 const app = express();
 
@@ -6,6 +8,11 @@ app.set('views', __dirname + '/../views');
 app.set('view engine', 'ejs');
 
 const database = require('../database');
+
+app.use(basicAuth({
+  users: { [process.env.BASIC_USER]: process.env.BASIC_PASS },
+  challenge: true
+}))
 
 // Keeping this cos might need it to run locally (Vercel doesn't require it)
 app.use(express.static('public'))
