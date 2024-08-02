@@ -272,6 +272,7 @@ app.post('/add-book', async function (req, res) {
     var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, '" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
   }
 
+  console.log(query)
   await database.queryDatabase(query)
 
   if (year) {
