@@ -96,8 +96,6 @@ app.post('/update', async function (req, res) {
     insertNewUnescoSitesQuery += " (" + site.id + ",'" + site.name.replace(/"/g, '\\"') + "','" + site.country.replace(/"/g, '\\"') + "'," + 1 + ", '" + site.url + "')"
   })
 
-  console.log(insertNewUnescoSitesQuery)
-
   await database.queryDatabase(insertNewUnescoSitesQuery)
 
   res.redirect('/travel');
@@ -273,7 +271,6 @@ app.post('/add-book', async function (req, res) {
     var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, '" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
   }
 
-  console.log(query)
   await database.queryDatabase(query)
 
   if (year) {
