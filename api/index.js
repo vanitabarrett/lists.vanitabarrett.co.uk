@@ -92,7 +92,7 @@ app.post('/update', async function (req, res) {
       insertNewUnescoSitesQuery += ","
     }
 
-    insertNewUnescoSitesQuery += "(" + site.id + ",\"" + site.name.replace(/"/g, '\\"') + "\",\"" + site.country.replace(/"/g, '\\"') + "\"," + 1 + ")"
+    insertNewUnescoSitesQuery += " (" + site.id + ",\"" + site.name.replace(/"/g, '\\"') + "\",\"" + site.country.replace(/"/g, '\\"') + "\"," + 1 + ")"
   })
 
   console.log(insertNewUnescoSitesQuery)
