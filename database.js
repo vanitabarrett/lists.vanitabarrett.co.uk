@@ -42,5 +42,6 @@ Array.prototype.diff = function (comparisonArray) {
 
 module.exports = {
   queryDatabase,
+  parameterisedQueryDatabase,
   fetchDataFromUnesco
 }
