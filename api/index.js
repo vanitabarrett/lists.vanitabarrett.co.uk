@@ -222,16 +222,16 @@ app.post('/edit-book', async function (req, res) {
 
   // Update title and status of book
   var query = "UPDATE " + database_name + ' SET title = \'' + title + '\', status = \'' + status + '\', rating = \'' + rating + '\' WHERE id = \'' + id + '\''
+  await database.queryDatabase(query)
+
   // If book is completed, update/add to completed database
   if (status === 4) {
-    var secondaryQuery = "INSERT INTO " + completed_database_name + " (book_id, year) VALUES (" + id + "," + year + ") ON CONFLICT (book_id) DO UPDATE SET year = '" + year + "'"
+    var secondaryQuery = "INSERT INTO " + completed_database_name + " (book_id, year) VALUES ($1, $2) ON CONFLICT (book_id) DO UPDATE SET year = '" + year + "'"
+    var values = [id, year]
+    await database.parameterisedQueryDatabase(secondaryQuery, values)
   } else {
     // Delete if it's in the completed table already
     var secondaryQuery = "DELETE FROM " + completed_database_name + " WHERE book_id=" + id
-  }
-
-  await database.queryDatabase(query)
-  if (secondaryQuery) {
     await database.queryDatabase(secondaryQuery)
   }
 
@@ -266,13 +266,10 @@ app.post('/add-book', async function (req, res) {
   var status = Number(req.body.status)
   var year = req.body.year
 
-  if (year) {
-    var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, '" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
-  } else {
-    var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, '" + title + "','"  + firstname + "','" + surname + "'," + status + ")"
-  }
+  var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES ($1, $2, $3, $4, $5)"
+  var values = ['DEFAULT', title, firstname, surname, status]
 
-  await database.queryDatabase(query)
+  await database.parameterisedQueryDatabase(query, values)
 
   if (year) {
     // We now need to add it to the completed table
@@ -280,8 +277,9 @@ app.post('/add-book', async function (req, res) {
     var rawId =  await database.queryDatabase(getBookId)
     id = rawId[0].id
 
-    var secondaryQuery = "INSERT INTO completed_nonlist_books (book_id, year) VALUES (" + id + "," + year + ") ON CONFLICT (book_id) DO UPDATE SET year = '" + year + "'"
-    await database.queryDatabase(secondaryQuery)
+    var secondaryQuery = "INSERT INTO completed_nonlist_books (book_id, year) VALUES ($1, $2) ON CONFLICT (book_id) DO UPDATE SET year = '" + year + "'"
+    var values = [id, year]
+    await database.parameterisedQueryDatabase(secondaryQuery, values)
   }
 
   res.redirect('/books');
