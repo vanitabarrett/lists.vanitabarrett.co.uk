@@ -86,12 +86,16 @@ app.post('/update', async function (req, res) {
     })
   }
 
-  const insertNewUnescoSitesQuery = "INSERT INTO list__travel (id, name, country, status, url) VALUES ($1, $2, $3, $4, $5)"
-  const values = [];
+  const values = []
+  const placeholders = []
 
-  newSitesToAdd.forEach(async (site, index) => {
-    values.push[site.id, site.name, site.country, 1, site.url]
+  newSitesToAdd.forEach(async (site, i) => {
+    const baseIndex = i * 5
+    placeholders.push(`($${baseIndex + 1}, $${baseIndex + 2}, $${baseIndex + 3}, $${baseIndex + 4}, $${baseIndex + 5})`)
+    values.push(site.id, site.name, site.country, 1, site.url)
   })
+
+  const insertNewUnescoSitesQuery = `INSERT INTO list__travel (id, name, country, status, url) VALUES ${placeholders.join(", ")}`;
 
   await database.parameterisedQueryDatabase(insertNewUnescoSitesQuery, values)
 
