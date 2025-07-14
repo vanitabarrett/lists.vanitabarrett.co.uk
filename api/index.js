@@ -266,8 +266,8 @@ app.post('/add-book', async function (req, res) {
   var status = Number(req.body.status)
   var year = req.body.year
 
-  var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES ($1, $2, $3, $4, $5)"
-  var values = ['DEFAULT', title, firstname, surname, status]
+  var query = "INSERT INTO nonlist_books (id, title, author_firstname, author_surname, status) VALUES (DEFAULT, $1, $2, $3, $4)"
+  var values = [title, firstname, surname, status]
 
   await database.parameterisedQueryDatabase(query, values)
 
