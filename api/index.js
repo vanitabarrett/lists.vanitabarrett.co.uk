@@ -86,17 +86,14 @@ app.post('/update', async function (req, res) {
     })
   }
 
-  var insertNewUnescoSitesQuery = "INSERT INTO list__travel (id, name, country, status, url) VALUES"
+  const insertNewUnescoSitesQuery = "INSERT INTO list__travel (id, name, country, status, url) VALUES ($1, $2, $3, $4, $5)"
+  const values = [];
 
   newSitesToAdd.forEach(async (site, index) => {
-    if (index > 0) {
-      insertNewUnescoSitesQuery += ","
-    }
-
-    insertNewUnescoSitesQuery += " (" + site.id + ",'" + site.name.replace(/"/g, '\\"') + "','" + site.country.replace(/"/g, '\\"') + "'," + 1 + ", '" + site.url + "')"
+    values.push[site.id, site.name, site.country, 1, site.url]
   })
 
-  await database.queryDatabase(insertNewUnescoSitesQuery)
+  await database.parameterisedQueryDatabase(insertNewUnescoSitesQuery, values)
 
   res.redirect('/travel');
 })

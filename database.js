@@ -8,6 +8,11 @@ async function queryDatabase(queryString) {
   return res.rows
 }
 
+async function parameterisedQueryDatabase(queryString, values) {
+  const res = await vercel.sql.query(queryString, values)
+  return res.rows
+}
+
 function fetchDataFromUnesco() {
   // Fetch latest data from Unesco XML
   return new Promise((resolve, reject) => {
